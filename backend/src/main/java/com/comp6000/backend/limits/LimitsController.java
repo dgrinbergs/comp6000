@@ -23,5 +23,6 @@ class LimitsController {
   ResponseEntity<Map<String, Object>> getLimits() {
     return ResponseEntity.ok(limitsService.getLimits());
   }
+}
 
 
