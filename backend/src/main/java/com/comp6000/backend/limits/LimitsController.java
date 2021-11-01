@@ -24,10 +24,4 @@ class LimitsController {
     return ResponseEntity.ok(limitsService.getLimits());
   }
 
-  @GetMapping("/test")
-  String testMethod() {
-    return "Big yeeeeeeeeeeeeeet";
-  }
-}
-
 
