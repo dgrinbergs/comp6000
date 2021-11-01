@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,5 +32,7 @@ class LimitsControllerTest extends AbstractControllerTest {
     var result = parseResponse(response.getResponse().getContentAsString());
     assertThat(result).hasSize(1);
     assertThat(result).containsEntry("key", "value");
+
+    verify(limitsService).getLimits();
   }
 }

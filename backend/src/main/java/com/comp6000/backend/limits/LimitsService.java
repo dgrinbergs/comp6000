@@ -25,7 +25,7 @@ class LimitsService {
   }
 
   Limits.Building getBuildingLimits() {
-    return new Limits.Building(new Limits.Building.Height(10, 40));
+    return new Limits.Building(new Limits.Building.Height(1, 50));
   }
 
 }
