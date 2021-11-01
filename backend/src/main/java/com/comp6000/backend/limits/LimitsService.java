@@ -13,7 +13,7 @@ class LimitsService {
   Map<String, Object> getLimits() {
     return Map.of(
         "seasons", getAvailableSeasons(),
-        "building", getBuildingRestrictions()
+        "building", getBuildingLimits()
     );
   }
 
@@ -24,7 +24,7 @@ class LimitsService {
         .collect(Collectors.toList());
   }
 
-  Limits.Building getBuildingRestrictions() {
+  Limits.Building getBuildingLimits() {
     return new Limits.Building(new Limits.Building.Height(10, 40));
   }
 
