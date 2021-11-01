@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: test backend
-    image: adoptopenjdk/openjdk17:alpine
+    image: openjdk:17-alpine
     commands:
       - chmod +x gradlew
       - ./gradlew test
