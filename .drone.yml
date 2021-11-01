@@ -1,0 +1,11 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: test backend
+    image: openjdk:17-alpine
+    commands:
+      - cd backend
+      - chmod +x gradlew
+      - ./gradlew test
