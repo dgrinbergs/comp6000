@@ -13,6 +13,7 @@ import java.util.Map;
 class LimitsController {
 
   private final LimitsService limitsService;
+  @GetMapping("/test") String testMethod() { return "Big yeeeeeeeeeeeeeet"; }
 
   @Autowired
   LimitsController(LimitsService limitsService) {
@@ -24,3 +25,5 @@ class LimitsController {
     return ResponseEntity.ok(limitsService.getLimits());
   }
 }
+
+
