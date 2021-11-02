@@ -3,12 +3,14 @@ package com.comp6000.backend.builds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("builds")
@@ -38,7 +40,8 @@ class BuildController {
   ResponseEntity<?> submitBuild(@Valid @RequestBody BuildRequest buildRequest, BindingResult bindingResult) {
     validator.validate(buildRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      return ResponseEntity.badRequest().build();
+      var errors = bindingResult.getFieldErrors().stream().map(FieldError::getCode).collect(Collectors.toList());
+      return ResponseEntity.badRequest().body(errors);
     }
 
     var buildId = buildService.saveBuild(buildRequest);

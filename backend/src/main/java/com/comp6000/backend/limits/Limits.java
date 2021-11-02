@@ -6,8 +6,8 @@ public class Limits {
     SUMMER, AUTUMN, WINTER, SPRING
   }
 
-  record Building(Building.Height height) {
-    record Height(int min, int max) {
+  public record Building(Building.Height height) {
+    public record Height(int min, int max) {
     }
   }
 

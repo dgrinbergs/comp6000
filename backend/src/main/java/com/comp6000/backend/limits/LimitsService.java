@@ -8,23 +8,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-class LimitsService {
+public class LimitsService {
 
-  Map<String, Object> getLimits() {
+  public Map<String, Object> getLimits() {
     return Map.of(
         "seasons", getAvailableSeasons(),
         "building", getBuildingLimits()
     );
   }
 
-  List<String> getAvailableSeasons() {
+  public List<String> getAvailableSeasons() {
     return Arrays.stream(Limits.Season.values())
         .map(Limits.Season::name)
         .map(String::toLowerCase)
         .collect(Collectors.toList());
   }
 
-  Limits.Building getBuildingLimits() {
+  public Limits.Building getBuildingLimits() {
     return new Limits.Building(new Limits.Building.Height(10, 40));
   }
 
