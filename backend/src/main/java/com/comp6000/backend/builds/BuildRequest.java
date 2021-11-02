@@ -27,5 +27,5 @@ public class BuildRequest {
     this.building = building;
   }
 
-  public record Building(int height) {}
+  public record Building(Integer height) {}
 }

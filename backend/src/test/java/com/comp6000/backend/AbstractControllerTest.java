@@ -31,4 +31,12 @@ public abstract class AbstractControllerTest {
     }
   }
 
+  protected String stringify(Object object) {
+    try {
+      return objectMapper.writeValueAsString(object);
+    } catch(JsonProcessingException e) {
+      throw new RuntimeException(String.format("Could not stringify: %s", object.toString()));
+    }
+  }
+
 }

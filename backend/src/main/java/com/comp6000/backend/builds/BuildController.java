@@ -1,29 +1,30 @@
 package com.comp6000.backend.builds;
 
+import com.comp6000.backend.utils.errors.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("builds")
 @Validated
 class BuildController {
 
-  private final BuildValidator validator;
   private final BuildService buildService;
+  private final BuildValidator buildValidator;
+  private final ErrorService errorService;
 
   @Autowired
-  public BuildController(BuildValidator validator, BuildService buildService) {
-    this.validator = validator;
+  public BuildController(BuildService buildService, BuildValidator validator, ErrorService errorService) {
     this.buildService = buildService;
+    this.buildValidator = validator;
+    this.errorService = errorService;
   }
 
   @GetMapping
@@ -38,14 +39,15 @@ class BuildController {
 
   @PostMapping
   ResponseEntity<?> submitBuild(@Valid @RequestBody BuildRequest buildRequest, BindingResult bindingResult) {
-    validator.validate(buildRequest, bindingResult);
+    buildValidator.validate(buildRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      var errors = bindingResult.getFieldErrors().stream().map(FieldError::getCode).collect(Collectors.toList());
-      return ResponseEntity.badRequest().body(errors);
+      return ResponseEntity.badRequest().body(Map.of("errors", errorService.getErrorDetails(bindingResult)));
     }
 
     var buildId = buildService.saveBuild(buildRequest);
-    return ResponseEntity.ok(buildId);
+    return ResponseEntity.ok(
+        Map.of("build", Map.of("id", buildId))
+    );
   }
 
 }
