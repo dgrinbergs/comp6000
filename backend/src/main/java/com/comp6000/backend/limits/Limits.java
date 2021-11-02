@@ -1,8 +1,8 @@
 package com.comp6000.backend.limits;
 
-class Limits {
+public class Limits {
 
-  enum Seasons {
+  public enum Season {
     SUMMER, AUTUMN, WINTER, SPRING
   }
 

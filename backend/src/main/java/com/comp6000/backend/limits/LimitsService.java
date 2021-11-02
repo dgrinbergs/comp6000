@@ -18,8 +18,8 @@ class LimitsService {
   }
 
   List<String> getAvailableSeasons() {
-    return Arrays.stream(Limits.Seasons.values())
-        .map(Limits.Seasons::name)
+    return Arrays.stream(Limits.Season.values())
+        .map(Limits.Season::name)
         .map(String::toLowerCase)
         .collect(Collectors.toList());
   }
