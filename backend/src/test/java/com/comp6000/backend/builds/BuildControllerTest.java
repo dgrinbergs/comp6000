@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.validation.BindingResult;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -211,6 +212,71 @@ class BuildControllerTest extends AbstractControllerTest {
         any(BindingResult.class)
     );
     verify(errorService).getErrorDetails(argThat(BindingResult::hasErrors));
+    verify(buildService, never()).saveBuild(any());
+  }
+
+  @Test
+  void submitBuild_noSeason() throws Exception {
+    var buildHeight = 20;
+    var buildRequest = new BuildRequest();
+    buildRequest.setBuilding(new BuildRequest.Building(buildHeight));
+
+    var result = mockMvc.perform(post(baseUrl)
+        .content(stringify(buildRequest))
+        .contentType(APPLICATION_JSON_VALUE)
+    ).andExpect(status().isBadRequest()).andReturn();
+    assertThat(result.getResponse().getContentType()).isEqualTo(APPLICATION_JSON_VALUE);
+
+    var response = result.getResolvedException();
+    assertThat(response)
+        .isInstanceOf(ConstraintViolationException.class)
+        .hasMessage("submitBuild.buildRequest.season: must not be blank");
+
+    verify(buildValidator, never()).validate(any(), any());
+    verify(errorService, never()).getErrorDetails(any());
+    verify(buildService, never()).saveBuild(any());
+  }
+
+  @Test
+  void submitBuild_noBuilding() throws Exception {
+    var season = "summer";
+    var buildRequest = new BuildRequest();
+    buildRequest.setSeason(season);
+
+    var result = mockMvc.perform(post(baseUrl)
+        .content(stringify(buildRequest))
+        .contentType(APPLICATION_JSON_VALUE)
+    ).andExpect(status().isBadRequest()).andReturn();
+    assertThat(result.getResponse().getContentType()).isEqualTo(APPLICATION_JSON_VALUE);
+
+    var response = result.getResolvedException();
+    assertThat(response)
+        .isInstanceOf(ConstraintViolationException.class)
+        .hasMessage("submitBuild.buildRequest.building: must not be null");
+
+    verify(buildValidator, never()).validate(any(), any());
+    verify(errorService, never()).getErrorDetails(any());
+    verify(buildService, never()).saveBuild(any());
+  }
+
+  @Test
+  void submitBuild_noBuildingAndNoSeason() throws Exception {
+    var buildRequest = new BuildRequest();
+
+    var result = mockMvc.perform(post(baseUrl)
+        .content(stringify(buildRequest))
+        .contentType(APPLICATION_JSON_VALUE)
+    ).andExpect(status().isBadRequest()).andReturn();
+    assertThat(result.getResponse().getContentType()).isEqualTo(APPLICATION_JSON_VALUE);
+
+    var response = result.getResolvedException();
+    assertThat(response)
+        .isInstanceOf(ConstraintViolationException.class)
+        .hasMessageContaining("submitBuild.buildRequest.building: must not be null")
+        .hasMessageContaining("submitBuild.buildRequest.season: must not be blank");
+
+    verify(buildValidator, never()).validate(any(), any());
+    verify(errorService, never()).getErrorDetails(any());
     verify(buildService, never()).saveBuild(any());
   }
 
