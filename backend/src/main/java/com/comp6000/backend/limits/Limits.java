@@ -7,7 +7,7 @@ public class Limits {
   }
 
   public record Building(Building.Height height) {
-    public record Height(int min, int max) {
+    public record Height(Integer min, Integer max) {
     }
   }
 

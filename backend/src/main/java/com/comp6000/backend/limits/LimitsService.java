@@ -1,5 +1,7 @@
 package com.comp6000.backend.limits;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -9,6 +11,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class LimitsService {
+
+  private final Integer buildingHeightMin;
+  private final Integer buildingHeightMax;
+
+  @Autowired
+  public LimitsService(@Value("${limits.building.height.min}") Integer buildingHeightMin,
+                       @Value("${limits.building.height.max}")Integer buildingHeightMax) {
+    this.buildingHeightMin = buildingHeightMin;
+    this.buildingHeightMax = buildingHeightMax;
+  }
 
   public Map<String, Object> getLimits() {
     return Map.of(
@@ -25,7 +37,7 @@ public class LimitsService {
   }
 
   public Limits.Building getBuildingLimits() {
-    return new Limits.Building(new Limits.Building.Height(10, 40));
+    return new Limits.Building(new Limits.Building.Height(buildingHeightMin, buildingHeightMax));
   }
 
 }

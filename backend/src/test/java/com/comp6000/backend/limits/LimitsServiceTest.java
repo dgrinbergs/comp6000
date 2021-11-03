@@ -11,9 +11,12 @@ class LimitsServiceTest {
 
   private LimitsService limitsService;
 
+  private final Integer buildingHeightMax = 40;
+  private final Integer buildingHeightMin = 10;
+
   @BeforeEach
   void setUp() {
-    limitsService = new LimitsService();
+    limitsService = new LimitsService(buildingHeightMin, buildingHeightMax);
   }
 
   @Test
@@ -26,8 +29,8 @@ class LimitsServiceTest {
     assertThat(seasons).containsExactlyInAnyOrder("summer", "winter", "spring", "autumn");
 
     var building = (Limits.Building) limits.get("building");
-    assertThat(building.height().min()).isEqualTo(10);
-    assertThat(building.height().max()).isEqualTo(40);
+    assertThat(building.height().min()).isEqualTo(buildingHeightMin);
+    assertThat(building.height().max()).isEqualTo(buildingHeightMax);
   }
 
   @Test
@@ -39,7 +42,7 @@ class LimitsServiceTest {
   @Test
   void getBuildingLimits() {
     var building = limitsService.getBuildingLimits();
-    assertThat(building.height().min()).isEqualTo(10);
-    assertThat(building.height().max()).isEqualTo(40);
+    assertThat(building.height().min()).isEqualTo(buildingHeightMin);
+    assertThat(building.height().max()).isEqualTo(buildingHeightMax);
   }
 }
