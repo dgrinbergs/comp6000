@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/limits")
+@RequestMapping("limits")
 class LimitsController {
 
   private final LimitsService limitsService;
