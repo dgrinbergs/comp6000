@@ -12,7 +12,7 @@ import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 @RestController
 public class SSEController {
 
-  @GetMapping(value = "/stream", produces = TEXT_EVENT_STREAM_VALUE)
+  @GetMapping(value = "/sse/time", produces = TEXT_EVENT_STREAM_VALUE)
   public Flux<String> timestampStream() {
     return Flux.interval(Duration.ofSeconds(1)).map(l -> LocalTime.now().toString());
   }
