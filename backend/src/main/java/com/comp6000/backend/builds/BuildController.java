@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("builds")
+@RequestMapping("/api/builds")
 @Validated
 class BuildController {
 
