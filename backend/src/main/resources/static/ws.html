@@ -10,7 +10,7 @@
 <body>
 <script>
     const socket = new WebSocket("ws://localhost:8080/ws/time");
-    socket.addEventListener('message', data => console.log(data));
+    socket.addEventListener('message', event => console.log(event.data));
 </script>
 </body>
 </html>
