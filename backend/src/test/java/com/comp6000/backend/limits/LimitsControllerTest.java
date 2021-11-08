@@ -26,7 +26,7 @@ class LimitsControllerTest extends AbstractControllerTest {
 
   @Test
   void getLimits() throws Exception {
-    var response = mockMvc.perform(get("/limits")).andExpect(status().isOk()).andReturn();
+    var response = mockMvc.perform(get("/api/limits")).andExpect(status().isOk()).andReturn();
     assertThat(response.getResponse().getContentType()).isEqualTo(MediaType.APPLICATION_JSON_VALUE);
 
     var result = parseResponse(response.getResponse().getContentAsString());

@@ -30,7 +30,7 @@ class BuildControllerTest extends AbstractControllerTest {
   @MockBean
   private ErrorService errorService;
 
-  private final String baseUrl = "/builds";
+  private final String baseUrl = "/api/builds";
 
   @Test
   void getAllBuilds() throws Exception {
