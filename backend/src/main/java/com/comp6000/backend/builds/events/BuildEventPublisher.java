@@ -1,4 +1,4 @@
-package com.comp6000.backend.greeting;
+package com.comp6000.backend.builds.events;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -12,24 +12,24 @@ import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 @Component
-public class GreetingEventPublisher implements ApplicationListener<GreetingEvent>, Consumer<FluxSink<GreetingEvent>> {
+public class BuildEventPublisher implements ApplicationListener<BuildEvent>, Consumer<FluxSink<BuildEvent>> {
 
   private final Executor executor;
-  private final BlockingQueue<GreetingEvent> greetingEventQueue;
+  private final BlockingQueue<BuildEvent> buildEvents;
 
   @Autowired
-  public GreetingEventPublisher(Executor executor) {
+  public BuildEventPublisher(Executor executor) {
     this.executor = executor;
-    this.greetingEventQueue = new ArrayBlockingQueue<>(5, true);
+    this.buildEvents = new ArrayBlockingQueue<>(5, true);
   }
 
   @Override
-  public void accept(FluxSink<GreetingEvent> greetingEventFluxSink) {
-    executor.execute(() -> {
+  public void accept(FluxSink<BuildEvent> buildEventFluxSink) {
+    this.executor.execute(() -> {
       while (true) {
         try {
-          greetingEventFluxSink.next(greetingEventQueue.take());
-        } catch (InterruptedException e) {
+          buildEventFluxSink.next(buildEvents.take());
+        } catch(InterruptedException e) {
           ReflectionUtils.rethrowRuntimeException(e);
         }
       }
@@ -37,7 +37,7 @@ public class GreetingEventPublisher implements ApplicationListener<GreetingEvent
   }
 
   @Override
-  public void onApplicationEvent(GreetingEvent event) {
-    this.greetingEventQueue.offer(event);
+  public void onApplicationEvent(BuildEvent event) {
+    this.buildEvents.offer(event);
   }
 }

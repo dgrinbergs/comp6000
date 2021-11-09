@@ -1,28 +1,27 @@
-package com.comp6000.backend.greeting;
+package com.comp6000.backend.builds.events;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketSession;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
-public class WebSocketHandler implements org.springframework.web.reactive.socket.WebSocketHandler {
+public class BuildEventWebSocketHandler implements WebSocketHandler {
 
   private final ObjectMapper objectMapper;
-  private final Flux<GreetingEvent> greetingEventFlux;
+  private final Flux<BuildEvent> buildEventFlux;
 
-  @Autowired
-  public WebSocketHandler(Flux<GreetingEvent> greetingEventFlux, ObjectMapper objectMapper) {
+  public BuildEventWebSocketHandler(ObjectMapper objectMapper, Flux<BuildEvent> buildEventFlux) {
     this.objectMapper = objectMapper;
-    this.greetingEventFlux = greetingEventFlux;
+    this.buildEventFlux = buildEventFlux;
   }
 
   @Override
   public Mono<Void> handle(WebSocketSession session) {
-    var messageFlux = greetingEventFlux.map(event -> {
+    var messageFlux = buildEventFlux.map(event -> {
       try {
         return objectMapper.writeValueAsString(event.getSource());
       } catch (JsonProcessingException e) {

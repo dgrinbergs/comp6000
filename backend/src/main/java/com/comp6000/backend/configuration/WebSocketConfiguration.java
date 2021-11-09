@@ -1,22 +1,22 @@
-package com.comp6000.backend.greeting;
+package com.comp6000.backend.configuration;
 
+import com.comp6000.backend.builds.events.BuildEventWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.HandlerMapping;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
-import org.springframework.web.reactive.socket.WebSocketHandler;
 
 import java.util.Map;
 
 @Configuration
-public class WebSocketConfig {
+public class WebSocketConfiguration {
 
-  private final WebSocketHandler webSocketHandler;
+  private final BuildEventWebSocketHandler buildEventWebSocketHandler;
 
   @Autowired
-  public WebSocketConfig(WebSocketHandler webSocketHandler) {
-    this.webSocketHandler = webSocketHandler;
+  public WebSocketConfiguration(BuildEventWebSocketHandler buildEventWebSocketHandler) {
+    this.buildEventWebSocketHandler = buildEventWebSocketHandler;
   }
 
   @Bean
@@ -24,7 +24,7 @@ public class WebSocketConfig {
     SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
     handlerMapping.setOrder(1);
     handlerMapping.setUrlMap(Map.of(
-        "/ws/time", webSocketHandler
+        "/ws/builds", buildEventWebSocketHandler
     ));
     return handlerMapping;
   }
