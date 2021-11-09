@@ -15,9 +15,9 @@ public class WebSocketHandler implements org.springframework.web.reactive.socket
   private final Flux<GreetingEvent> greetingEventFlux;
 
   @Autowired
-  public WebSocketHandler(GreetingEventPublisher eventPublisher, ObjectMapper objectMapper) {
+  public WebSocketHandler(Flux<GreetingEvent> greetingEventFlux, ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
-    this.greetingEventFlux = Flux.create(eventPublisher).share();
+    this.greetingEventFlux = greetingEventFlux;
   }
 
   @Override
