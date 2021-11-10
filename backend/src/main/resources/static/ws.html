@@ -9,8 +9,11 @@
 </head>
 <body>
 <script>
-    const socket = new WebSocket("ws://localhost:8080/ws/builds");
-    socket.addEventListener('message', event => console.log(event.data));
+    const buildsSocket = new WebSocket("ws://localhost:8080/ws/builds");
+    buildsSocket.addEventListener('message', event => console.log('builds: ', event.data));
+
+    const schematicsSocket = new WebSocket("ws://localhost:8080/ws/schematics");
+    schematicsSocket.addEventListener('message', event => console.log('schematics: ', event.data));
 </script>
 </body>
 </html>
