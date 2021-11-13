@@ -4,16 +4,16 @@ import java.util.UUID;
 
 public class GenerationDetails {
 
-  private final UUID buildUuid;
+  private final UUID buildId;
   private final String schematicUrl;
 
-  public GenerationDetails(UUID buildUuid, String schematicUrl) {
-    this.buildUuid = buildUuid;
+  public GenerationDetails(UUID buildId, String schematicUrl) {
+    this.buildId = buildId;
     this.schematicUrl = schematicUrl;
   }
 
-  public UUID getBuildUuid() {
-    return buildUuid;
+  public UUID getBuildId() {
+    return buildId;
   }
 
   public String getSchematicUrl() {
