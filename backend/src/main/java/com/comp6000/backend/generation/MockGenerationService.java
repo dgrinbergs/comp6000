@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class MockGenerationService implements GenerationService{
+public class MockGenerationService implements GenerationService {
 
   @Override
   public String generateSchematicForBuild(BuildDetails buildDetails) {

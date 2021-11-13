@@ -10,7 +10,12 @@
 <body>
 <script>
     const schematicsSocket = new WebSocket("ws://localhost:8080/ws/schematics");
-    schematicsSocket.addEventListener('message', event => console.log(event.data));
+    schematicsSocket.addEventListener('message', event => {
+      let paragraph = document.createElement('p');
+      paragraph.append(event.data);
+      document.body.append(paragraph);
+      // console.log(event.data)
+    });
 </script>
 </body>
 </html>
