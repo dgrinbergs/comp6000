@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.comp6000'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "16"
+sourceCompatibility = "11"
 
 repositories {
     mavenCentral()
@@ -23,4 +23,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-targetCompatibility = JavaVersion.VERSION_16
