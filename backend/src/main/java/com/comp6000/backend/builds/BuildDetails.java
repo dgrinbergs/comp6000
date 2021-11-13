@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-public class BuildDetails {
+public final class BuildDetails {
 
   private final UUID uuid;
 

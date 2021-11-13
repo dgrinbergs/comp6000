@@ -29,7 +29,7 @@ public class BuildEventPublisher implements ApplicationListener<BuildEvent>, Con
       while (true) {
         try {
           buildEventFluxSink.next(buildEvents.take());
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
           ReflectionUtils.rethrowRuntimeException(e);
         }
       }

@@ -6,12 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 @Service
 public class BuildService {
@@ -27,18 +25,14 @@ public class BuildService {
     this.builds = Collections.synchronizedList(new ArrayList<>());
   }
 
-  Mono<BuildDetails> saveBuildDetails(BuildDetails buildDetails) {
+  BuildDetails saveBuildDetails(BuildDetails buildDetails) {
     var newBuildDetails = new BuildDetails();
     newBuildDetails.setSeason(buildDetails.getSeason());
     newBuildDetails.setBuildingProperties(buildDetails.getBuildingProperties());
 
-
     this.builds.add(newBuildDetails);
     this.eventPublisher.publishEvent(new BuildCreatedEvent(newBuildDetails));
-
-    LOGGER.info("New build details received. {} total", builds.size());
-
-    return Mono.just(newBuildDetails);
+    return newBuildDetails;
   }
 
 }
