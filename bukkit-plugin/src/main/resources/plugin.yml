@@ -1,0 +1,4 @@
+name: comp6000
+main: com.comp6000.bukkit.COMP6000Plugin
+version: 0.1.0-SNAPSHOT
+depend: [FastAsyncWorldEdit]
