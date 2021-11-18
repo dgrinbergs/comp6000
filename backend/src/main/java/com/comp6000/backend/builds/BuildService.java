@@ -1,35 +1,38 @@
 package com.comp6000.backend.builds;
 
-import com.comp6000.backend.builds.exceptions.BuildNotFoundException;
+import com.comp6000.backend.builds.events.BuildCreatedEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class BuildService {
 
-  private final Map<UUID, BuildRequest> buildRequests;
+  private final ApplicationEventPublisher eventPublisher;
+  private final List<BuildDetails> builds;
 
-  public BuildService() {
-    this.buildRequests = new ConcurrentHashMap<>();
+  private static final Logger LOGGER = LoggerFactory.getLogger(BuildService.class);
+
+  @Autowired
+  public BuildService(ApplicationEventPublisher eventPublisher) {
+    this.eventPublisher = eventPublisher;
+    this.builds = Collections.synchronizedList(new ArrayList<>());
   }
 
-  public UUID saveBuild(BuildRequest buildRequest) {
-    var uuid = UUID.randomUUID();
-    buildRequests.put(uuid, buildRequest);
-    return uuid;
+  BuildDetails saveBuildDetails(BuildDetails buildDetails) {
+    var newBuildDetails = new BuildDetails();
+    newBuildDetails.setSeason(buildDetails.getSeason());
+    newBuildDetails.setBuildingProperties(buildDetails.getBuildingProperties());
+
+    this.builds.add(newBuildDetails);
+    this.eventPublisher.publishEvent(new BuildCreatedEvent(newBuildDetails));
+    return newBuildDetails;
   }
 
-  public BuildRequest getBuild(UUID uuid) {
-    return Optional.ofNullable(buildRequests.get(uuid)).orElseThrow(() ->
-        new BuildNotFoundException("Could not find build with uuid: " + uuid)
-    );
-  }
-
-  public Map<UUID, BuildRequest> getBuilds() {
-    return buildRequests;
-  }
 }

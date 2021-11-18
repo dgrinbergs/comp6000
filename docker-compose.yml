@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  backend:
+    container_name: backend
+    restart: always
+    build: ./backend
+    networks:
+      - comp6000
+    environment:
+      - API_WS_SCHEMATIC_ENDPOINT=/ws/schematics
+
+networks:
+  comp6000:

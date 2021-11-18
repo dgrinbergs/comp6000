@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebSocket Client</title>
+</head>
+<body>
+<script>
+    const schematicsSocket = new WebSocket("ws://localhost:8080/ws/schematics");
+    schematicsSocket.addEventListener('message', event => {
+      let paragraph = document.createElement('p');
+      paragraph.append(event.data);
+      document.body.append(paragraph);
+      // console.log(event.data)
+    });
+</script>
+</body>
+</html>
