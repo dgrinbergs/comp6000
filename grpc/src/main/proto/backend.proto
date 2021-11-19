@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_package = "com.comp6000.grpc";
+option java_multiple_files = true;
+
+service BackendService {
+  rpc GetSchematics(google.protobuf.Empty) returns (stream GenerationDetails) {}
+}
+
+message GenerationDetails {
+  string buildId = 1;
+  string schematicUrl = 2;
+}

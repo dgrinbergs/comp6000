@@ -11,6 +11,7 @@ services:
       - API_WS_SCHEMATIC_ENDPOINT=/ws/schematics
     ports:
       - "80:8080"
+      - "9090:9090"
 
   minecraft-server:
     container_name: minecraft-server
@@ -18,6 +19,9 @@ services:
     restart: always
     networks:
       - comp6000
+    environment:
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=9090
     volumes:
       - ./bukkit-plugin/build/libs/comp6000-bukkit.jar:/minecraft-server/plugins/bukkit-plugin.jar:ro
     ports:
