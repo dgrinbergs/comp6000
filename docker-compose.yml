@@ -17,6 +17,8 @@ services:
     container_name: minecraft-server
     build: minecraft-server
     restart: always
+    depends_on:
+      - backend
     networks:
       - comp6000
     environment:
