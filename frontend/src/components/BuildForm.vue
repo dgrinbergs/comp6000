@@ -1,20 +1,36 @@
 <template>
-  <div>
-    <h1>Hello</h1>
-    <h1>{{building.height}}</h1>
-    <h1>{{selectedSeason}}</h1>
+  <div class="py-5 text-center">
+    <h2>Generate a new build</h2>
+  </div>
+
+  <div class="row g-5">
     <form @submit.prevent="onSubmit">
-      <label id="seasonLabel">Season</label>
-      <select name="season" id="season" v-model="selectedSeason">
-        <option :value="season" v-for="season in seasons" :key="season">{{ season }}</option>
-      </select>
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Terrain details</h4>
+        <div class="my-3">
 
-      <label for="buildingHeight">Building Height</label>
-      <input type="text" id="buildingHeight" name="buildingHeight" v-model="building.height">
+          <template v-for="(season, index) in seasons" :key="season">
+            <div class="form-check">
+              <input :id="season" type="radio" :value="index" v-model="selectedSeason" class="form-check-input" required>
+              <label class="form-check-label text-capitalize" :for="season">{{ season }}</label>
+            </div>
+          </template>
+        </div>
+      </div>
 
-      <p style="color: red" v-if="building.height > 20">Building is too high</p>
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Building details</h4>
+      </div>
 
-      <input type="submit" value="Build">
+      <div class="col-12">
+        <label for="address" class="form-label">Height (in blocks)</label>
+        <input type="text" class="form-control" id="address" placeholder="20" required>
+      </div>
+
+      <hr class="my-4">
+
+      <button class="w-100 btn btn-primary btn-lg" type="submit">Generate!</button>
+
     </form>
   </div>
 </template>
@@ -27,11 +43,10 @@ export default {
   data() {
     return {
       seasons: [],
-      selectedSeason: [],
+      selectedSeason: 0,
       building: {
         height: 20
       },
-      buildingHeightError: [],
     }
   },
   mounted() {
@@ -40,7 +55,7 @@ export default {
   methods: {
     onSubmit() {
       axios.post('http://localhost:8080/api/builds', {
-        'season': this.selectedSeason,
+        'season': this.seasons[this.selectedSeason],
         'building': this.building
       })
     }
