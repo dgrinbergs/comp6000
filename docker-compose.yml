@@ -1,5 +1,21 @@
 version: "3.8"
+
 services:
+  frontend:
+    container_name: frontend
+    restart: always
+    build: ./frontend
+    depends_on:
+      - backend
+    networks:
+      - public
+      - comp6000
+    environment:
+      - VUE_APP_API_URL=backend
+      - VUE_APP_API_PORT=8080
+    ports:
+      - "80:80"
+
   backend:
     container_name: backend
     restart: always
@@ -11,7 +27,6 @@ services:
       - API_WS_SCHEMATIC_ENDPOINT=/ws/schematics
     ports:
       - "8080:8080"
-      - "9090:9090"
 
   minecraft-server:
     container_name: minecraft-server
