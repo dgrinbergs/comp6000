@@ -10,7 +10,7 @@ services:
     environment:
       - API_WS_SCHEMATIC_ENDPOINT=/ws/schematics
     ports:
-      - "80:8080"
+      - "8080:8080"
       - "9090:9090"
 
   minecraft-server:
