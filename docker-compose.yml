@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   backend:
     container_name: backend
@@ -11,12 +12,13 @@ services:
       - API_WS_SCHEMATIC_ENDPOINT=/ws/schematics
     ports:
       - "8080:8080"
-      - "9090:9090"
 
   minecraft-server:
     container_name: minecraft-server
     build: minecraft-server
     restart: always
+    depends_on:
+      - backend
     networks:
       - comp6000
     environment:

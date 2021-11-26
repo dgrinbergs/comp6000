@@ -50,11 +50,11 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:8080/api/seasons').then(response => this.seasons = response.data);
+    axios.get('/api/seasons').then(response => this.seasons = response.data);
   },
   methods: {
     onSubmit() {
-      axios.post('http://localhost:8080/api/builds', {
+      axios.post('/api/builds', {
         'season': this.seasons[this.selectedSeason],
         'building': this.building
       })
