@@ -18,11 +18,17 @@ repositories {
   maven {
     url = uri("https://papermc.io/repo/repository/maven-public/")
   }
+  maven {
+    name = "IntellectualSites Releases"
+    url = uri("https://mvn.intellectualsites.com/content/repositories/releases/")
+  }
 }
 
 dependencies {
   compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
   implementation(project(":grpc"))
+  compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:1.17-407") { isTransitive = false }
+  compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:1.17-407")
 }
 
 tasks.named<ShadowJar>("shadowJar") {

@@ -1,6 +1,8 @@
 # Gradle
 .gradle
-build
+backend/build
+bukkit-plugin/build
+grpc/build
 
 # IntelliJ
 .idea

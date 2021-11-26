@@ -6,7 +6,7 @@ option java_package = "com.comp6000.grpc";
 option java_multiple_files = true;
 
 service BackendService {
-  rpc GetSchematics(google.protobuf.Empty) returns (stream GenerationDetails) {}
+  rpc GetBuilds(google.protobuf.Empty) returns (stream GenerationDetails) {}
 }
 
 message GenerationDetails {
