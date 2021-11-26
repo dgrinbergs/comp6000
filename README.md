@@ -26,6 +26,7 @@ chmod +x ./build.sh
 
 #### Starting the services
 ```shell
+docker network create public
 docker-compose build --no-cache
 docker-compose up -d
 ```
