@@ -24,7 +24,7 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
   }
 
   @Override
-  public void getSchematics(Empty request, StreamObserver<GenerationDetails> responseObserver) {
+  public void getBuilds(Empty request, StreamObserver<GenerationDetails> responseObserver) {
     buildEventFlux.subscribe(event -> {
       var buildDetails = (BuildDetails) event.getSource();
       var schematicUrl = generationService.generateSchematicForBuild(buildDetails);
