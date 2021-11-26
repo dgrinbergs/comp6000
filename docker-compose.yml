@@ -19,6 +19,13 @@ services:
     restart: always
     depends_on:
       - backend
+
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+        reservations:
+          memory: 1024M
     networks:
       - comp6000
     environment:
