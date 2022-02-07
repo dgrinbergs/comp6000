@@ -16,7 +16,5 @@ api:
 ga:
   features:
     floor:
-      - id: stone
-        path: /some/path/floor/stone
-      - id: oak
-        path: /some/path/floor/oak
+      schematics:
+        - stone: /some/path/floor/stone
