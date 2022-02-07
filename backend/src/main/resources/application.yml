@@ -12,9 +12,3 @@ api:
   ws:
     schematics:
       endpoint: ${API_WS_SCHEMATIC_ENDPOINT:/ws/schematics}
-
-ga:
-  features:
-    floor:
-      schematics:
-        - stone: /some/path/floor/stone
