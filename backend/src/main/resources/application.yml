@@ -12,3 +12,11 @@ api:
   ws:
     schematics:
       endpoint: ${API_WS_SCHEMATIC_ENDPOINT:/ws/schematics}
+
+features:
+  floors:
+    - name: stone
+      path: /some/path/features/floor/stone.sch
+  walls:
+    - name: brick
+      path: /some/path/features/wall/brick.sch
