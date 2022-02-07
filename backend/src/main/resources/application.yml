@@ -17,6 +17,42 @@ features:
   floors:
     - name: stone
       path: /some/path/features/floor/stone.sch
+    - name: oak
+      path: /some/path/features/floor/oak.sch
+    - name: brick
+      path: /some/path/features/floor/brick.sch
+    - name: stonebrick
+      path: /some/path/features/floor/stonebrick.sch
+    - name: marble
+      path: /some/path/features/floor/marble.sch
+    - name: sandstone
+      path: /some/path/features/floor/sandstone.sch
+    - name: smoothstone
+      path: /some/path/features/floor/smoothstone.sch
+    - name: wool
+      path: /some/path/features/floor/wool.sch
+    - name: polishedandesite
+      path: /some/path/features/floor/polishedandesite.sch
+    - name: diorite
+      path: /some/path/features/floor/diorite.sch
   walls:
     - name: brick
       path: /some/path/features/wall/brick.sch
+    - name: oak
+      path: /some/path/features/wall/oak.sch
+    - name: marble
+      path: /some/path/features/wall/marble.sch
+    - name: smoothstone
+      path: /some/path/features/wall/smoothstone.sch
+    - name: stonebrick
+      path: /some/path/features/wall/stonebrick.sch
+    - name: cobblestone
+      path: /some/path/features/wall/cobblestone.sch
+    - name: quartz
+      path: /some/path/features/wall/quartz.sch
+    - name: netherbrick
+      path: /some/path/features/wall/netherbrick.sch
+    - name: granite
+      path: /some/path/features/wall/netherbrick.sch
+    - name: polishedlimestone
+      path: /some/path/features/wall/polishedlimestone.sch
