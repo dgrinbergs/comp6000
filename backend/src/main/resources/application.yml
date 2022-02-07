@@ -1,0 +1,22 @@
+server:
+  error:
+    include-message: always
+
+limits:
+  building:
+    height:
+      min: ${BUILDING_HEIGHT_MIN:10}
+      max: ${BUILDING_HEIGHT_MAX:40}
+
+api:
+  ws:
+    schematics:
+      endpoint: ${API_WS_SCHEMATIC_ENDPOINT:/ws/schematics}
+
+ga:
+  features:
+    floor:
+      - id: stone
+        path: /some/path/floor/stone
+      - id: oak
+        path: /some/path/floor/oak
