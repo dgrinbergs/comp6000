@@ -3,6 +3,7 @@ package com.comp6000.backend.genetic;
 import com.comp6000.backend.genetic.feature.bed.BedService;
 import com.comp6000.backend.genetic.feature.building.Building;
 import com.comp6000.backend.genetic.feature.building.BuildingFactory;
+import com.comp6000.backend.genetic.feature.corner.CornerPerimeter;
 import com.comp6000.backend.genetic.feature.corner.CornerService;
 import com.comp6000.backend.genetic.feature.decor.DecorService;
 import com.comp6000.backend.genetic.feature.door.DoorService;
@@ -103,7 +104,7 @@ public class GeneticAlgorithmService {
           .setWindow(randomWindow)
           .setRoof(randomRoof)
           .setDoor(randomDoor)
-          .setCorner(randomCorner)
+          .setCornerPerimeter(new CornerPerimeter(randomCorner))
           .setDoorNum(randomDoorNum)
           .setBed(randomBed)
           .setDecor(randomDecor)

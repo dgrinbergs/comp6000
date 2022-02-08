@@ -2,6 +2,7 @@ package com.comp6000.backend.genetic.feature.building;
 
 import com.comp6000.backend.genetic.feature.bed.Bed;
 import com.comp6000.backend.genetic.feature.corner.Corner;
+import com.comp6000.backend.genetic.feature.corner.CornerPerimeter;
 import com.comp6000.backend.genetic.feature.decor.Decor;
 import com.comp6000.backend.genetic.feature.door.Door;
 import com.comp6000.backend.genetic.feature.doornum.DoorNum;
@@ -18,20 +19,20 @@ public class Building {
   private final Window window;
   private final Roof roof;
   private final Door door;
-  private final Corner corner;
+  private final CornerPerimeter cornerperimeter;
   private final DoorNum doornum;
   private final Bed bed;
   private final Decor decor;
 
 
-  protected Building(String buildingId, Floor floor, Perimeter perimeter, Window window, Roof roof, Door door, Corner corner, DoorNum doornum, Bed bed, Decor decor) {
+  protected Building(String buildingId, Floor floor, Perimeter perimeter, Window window, Roof roof, Door door, CornerPerimeter cornerperimeter, DoorNum doornum, Bed bed, Decor decor) {
     this.buildingId = buildingId;
     this.floor = floor;
     this.perimeter = perimeter;
     this.window = window;
     this.roof = roof;
     this.door = door;
-    this.corner = corner;
+    this.cornerperimeter = cornerperimeter;
     this.doornum = doornum;
     this.bed = bed;
     this.decor = decor;
@@ -55,7 +56,7 @@ public class Building {
 
   public Door getDoor() { return door; }
 
-  public Corner getCorner() { return corner; }
+  public CornerPerimeter getCornerPerimeter() { return cornerperimeter; }
 
   public DoorNum getDoorNum() { return doornum; }
 

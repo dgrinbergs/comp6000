@@ -1,7 +1,7 @@
 package com.comp6000.backend.genetic.feature.building;
 
 import com.comp6000.backend.genetic.feature.bed.Bed;
-import com.comp6000.backend.genetic.feature.corner.Corner;
+import com.comp6000.backend.genetic.feature.corner.CornerPerimeter;
 import com.comp6000.backend.genetic.feature.decor.Decor;
 import com.comp6000.backend.genetic.feature.door.Door;
 import com.comp6000.backend.genetic.feature.doornum.DoorNum;
@@ -19,7 +19,7 @@ public class BuildingFactory {
   private Window window;
   private Roof roof;
   private Door door;
-  private Corner corner;
+  private CornerPerimeter cornerperimeter;
   private DoorNum doornum;
   private Bed bed;
   private Decor decor;
@@ -49,8 +49,8 @@ public class BuildingFactory {
     return this;
   }
 
-  public BuildingFactory setCorner(Corner corner) {
-    this.corner = corner;
+  public BuildingFactory setCornerPerimeter(CornerPerimeter cornerperimeter) {
+    this.cornerperimeter = cornerperimeter;
     return this;
   }
 
@@ -70,7 +70,7 @@ public class BuildingFactory {
   }
 
   public Building build() {
-    return new Building(UUID.randomUUID().toString(), floor, perimeter, window, roof, door, corner, doornum, bed, decor);
+    return new Building(UUID.randomUUID().toString(), floor, perimeter, window, roof, door, cornerperimeter, doornum, bed, decor);
   }
 
 }

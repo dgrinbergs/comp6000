@@ -10,6 +10,34 @@
         <th>Walls</th>
         <td>{{ walls }}</td>
       </tr>
+      <tr>
+        <th>Window</th>
+        <td>{{building.window.displayName || building.window.name}}</td>
+      </tr>
+      <tr>
+        <th>Roof</th>
+        <td>{{building.roof.displayName || building.roof.name}}</td>
+      </tr>
+      <tr>
+        <th>Door</th>
+        <td>{{building.door.displayName || building.door.name}}</td>
+      </tr>
+      <tr>
+        <th>Corner Perimeter</th>
+        <td>{{building.cornerperimeter.displayName || building.cornerperimeter.name}}</td>
+      </tr>
+      <tr>
+        <th>DoorNum</th>
+        <td>{{building.doornum.displayName || building.doornum.name}}</td>
+      </tr>
+      <tr>
+        <th>Bed</th>
+        <td>{{building.bed.displayName || building.bed.name}}</td>
+      </tr>
+      <tr>
+        <th>Decor</th>
+        <td>{{building.decor.displayName || building.decor.Name}}</td>
+      </tr>
     </table>
   </div>
 </template>
