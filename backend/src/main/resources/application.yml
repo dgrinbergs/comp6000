@@ -15,44 +15,64 @@ api:
 
 features:
   floors:
-    - name: stone
+    - displayName:
+      name: stone
       path: /some/path/features/floor/stone.sch
-    - name: oak
+    - displayName:
+      name: oak
       path: /some/path/features/floor/oak.sch
-    - name: brick
+    - displayName:
+      name: brick
       path: /some/path/features/floor/brick.sch
-    - name: stonebrick
+    - displayName: Stone Brick
+      name: stonebrick
       path: /some/path/features/floor/stonebrick.sch
-    - name: marble
+    - displayName:
+      name: marble
       path: /some/path/features/floor/marble.sch
-    - name: sandstone
+    - displayName:
+      name: sandstone
       path: /some/path/features/floor/sandstone.sch
-    - name: smoothstone
+    - displayName: Smooth Stone
+      name: smoothstone
       path: /some/path/features/floor/smoothstone.sch
-    - name: wool
+    - displayName:
+      name: wool
       path: /some/path/features/floor/wool.sch
-    - name: polishedandesite
+    - displayName: Polished Andesite
+      name: polishedandesite
       path: /some/path/features/floor/polishedandesite.sch
-    - name: diorite
+    - displayName:
+      name: diorite
       path: /some/path/features/floor/diorite.sch
   walls:
-    - name: brick
+    - displayName:
+      name: brick
       path: /some/path/features/wall/brick.sch
-    - name: oak
+    - displayName:
+      name: oak
       path: /some/path/features/wall/oak.sch
-    - name: marble
+    - displayName:
+      name: marble
       path: /some/path/features/wall/marble.sch
-    - name: smoothstone
+    - displayName: Smooth Stone
+      name: smoothstone
       path: /some/path/features/wall/smoothstone.sch
-    - name: stonebrick
+    - displayName: Stone Brick
+      name: stonebrick
       path: /some/path/features/wall/stonebrick.sch
-    - name: cobblestone
+    - displayName:
+      name: cobblestone
       path: /some/path/features/wall/cobblestone.sch
-    - name: quartz
+    - displayName:
+      name: quartz
       path: /some/path/features/wall/quartz.sch
-    - name: netherbrick
+    - displayName: Nether Brick
+      name: netherbrick
       path: /some/path/features/wall/netherbrick.sch
-    - name: granite
+    - displayName:
+      name: granite
       path: /some/path/features/wall/netherbrick.sch
-    - name: polishedlimestone
+    - displayName: Polished Limestone
+      name: polishedlimestone
       path: /some/path/features/wall/polishedlimestone.sch

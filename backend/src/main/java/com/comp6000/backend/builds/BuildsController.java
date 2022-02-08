@@ -3,14 +3,12 @@ package com.comp6000.backend.builds;
 import com.comp6000.backend.genetic.GeneticAlgorithmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/builds")
 public class BuildsController {
 
   private final BuildService buildService;
@@ -22,8 +20,8 @@ public class BuildsController {
     this.geneticAlgorithmService = geneticAlgorithmService;
   }
 
-  @PostMapping("/api/builds")
   @CrossOrigin
+  @PostMapping
   ResponseEntity<Map<String, Object>> createBuild(@RequestBody BuildDetails buildDetails) {
     return ResponseEntity.ok(Map.of(
         "buildDetails", buildService.saveBuildDetails(buildDetails),

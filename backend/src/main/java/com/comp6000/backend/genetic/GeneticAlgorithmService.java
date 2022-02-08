@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -26,10 +27,10 @@ public class GeneticAlgorithmService {
     this.wallService = wallService;
   }
 
-  public List<Building> createInitialPopulation() {
-    List<Building> population = new ArrayList<>();
+  public Population createInitialPopulation() {
+    List<Building> buildings = new ArrayList<>(SIZE);
 
-    for(int i = 0; i < SIZE; i++) {
+    for (int i = 0; i < SIZE; i++) {
       var floors = floorService.getFeatures();
       var randomFloor = floorService.getFeatures().get(
           ThreadLocalRandom.current().nextInt(0, floors.size())
@@ -45,11 +46,15 @@ public class GeneticAlgorithmService {
           .setPerimeter(new Perimeter(randomWall))
           .build();
 
-      population.add(building);
+      buildings.add(building);
     }
-    return population;
-  }
 
+    return new Population(
+        UUID.randomUUID().toString(),
+        buildings,
+        new ArrayList<>()
+    );
+  }
 
 
   //compare their favourite build against the rest of the population

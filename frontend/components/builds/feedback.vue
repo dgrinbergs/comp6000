@@ -4,7 +4,7 @@
       <h3 id="feedback-generation">Generation {{currentIteration + 1}}</h3>
     </div>
     <div id="population-grid">
-      <BuildsCard v-for="(building, index) in population" :key="index+1" :id="index+1" :building="building"/>
+      <BuildsCard v-for="(building, index) in buildings" :key="index+1" :id="index+1" :building="building"/>
     </div>
     <button @click="generateNext" class="primary-button">Generate next population</button>
   </div>
@@ -20,13 +20,13 @@ export default Vue.extend({
     currentIteration(): Number {
       return this.$store.getters["builds/currentIteration"];
     },
-    population(): Object[] {
-      return this.$store.getters["builds/iteration"](this.currentIteration);
+    buildings(): Object[] {
+      return this.$store.getters["builds/iteration"](this.currentIteration).buildings;
     },
   },
   methods: {
     generateNext() {
-      this.$store.dispatch("builds/generateNext");
+      // this.$store.dispatch("builds/generateNext");
     }
   }
 })

@@ -1,5 +1,5 @@
 <template>
-  <div class="build-card" :class="{'selected': isSelected}" @click="selectBuilding(id)">
+  <div class="build-card" :class="{'selected': isSelected}" @click="toggleBuildingSelection">
     <div class="h-36 w-36 bg-stone-200"></div>
     <table>
       <tr>
@@ -17,6 +17,7 @@
 import Vue from 'vue'
 
 type Building  = {
+  uuid: String,
   floor: String,
   perimeter: String
 }
@@ -24,23 +25,19 @@ type Building  = {
 export default Vue.extend({
   name: 'BuildsCard',
   props: {
-    id: {
-      type: Number,
-      required: true
-    },
     building: {
       type: Object as () => Building,
       required: true,
     }
   },
   computed: {
-    isSelected() {
-      return this.$store.getters["builds/isSelected"](this.id);
+    isSelected(): Boolean {
+      return this.$store.getters["builds/isSelected"](this.building);
     }
   },
   methods: {
-    selectBuilding(id: Number) {
-      this.$store.dispatch('builds/makeBuildingSelection', id)
+    toggleBuildingSelection(){
+      this.$store.dispatch('builds/toggleBuildingSelection', this.building)
     }
   }
 })

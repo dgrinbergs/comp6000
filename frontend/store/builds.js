@@ -2,24 +2,27 @@ export const state = () => ({
   seasons: [],
   currentIteration: -1,
   iterations: [],
-  selectedBuildings: []
 })
 
 export const mutations = {
   setSeasons(state, seasons) {
     state.seasons = seasons;
   },
-  addIteration(state, buildings) {
-    state.iterations.unshift(buildings);
+  addIteration(state, {buildings, selected, uuid}) {
+    state.iterations.unshift({buildings, selected, uuid});
     state.currentIteration = state.currentIteration += 1;
   },
-  makeBuildingSelection(state, building) {
-    if (!state.selectedBuildings.includes(building)) {
-      state.selectedBuildings.push(building);
+  toggleBuildingSelection(state, {uuid}) {
+    let selected = state.iterations[state.currentIteration].selected;
+
+    if(!selected.includes(uuid)) {
+      selected.push(uuid);
+    } else {
+      state.iterations[state.currentIteration].selected = selected.filter(s => s !== uuid)
     }
   },
   resetBuildingSelection(state) {
-    state.selectedBuildings = [];
+    state.iterations[state.currentIteration].selected = [];
   }
 }
 
@@ -30,8 +33,8 @@ export const actions = {
   addIteration({commit}, buildings) {
     commit('addIteration', buildings);
   },
-  makeBuildingSelection({commit}, building) {
-    commit('makeBuildingSelection', building);
+  toggleBuildingSelection({commit}, building) {
+    commit('toggleBuildingSelection', building);
   },
   generateNext({commit, state}) {
     const newPopulation = shuffle(state.iterations.at(-1));
@@ -51,7 +54,7 @@ export const getters = {
     return state.iterations[iteration];
   },
   isSelected: state => building => {
-    return state.selectedBuildings.includes(building);
+    return state.iterations[state.currentIteration].selected.includes(building.uuid);
   }
 }
 
