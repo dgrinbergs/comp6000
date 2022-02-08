@@ -34,9 +34,7 @@ export const actions = {
     commit('makeBuildingSelection', building);
   },
   generateNext({commit, state}) {
-    setTimeout(() => {}, 3000); // some delay to simulate GA
-    const oldPopulation = state.iterations.at(-1);
-    const newPopulation = shuffle(oldPopulation);
+    const newPopulation = shuffle(state.iterations.at(-1));
     commit('addIteration', newPopulation);
     commit('resetBuildingSelection');
   }
@@ -59,18 +57,10 @@ export const getters = {
 
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
-
-  // While there remain elements to shuffle...
   while (currentIndex !== 0) {
-
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
-
   return array;
 }
