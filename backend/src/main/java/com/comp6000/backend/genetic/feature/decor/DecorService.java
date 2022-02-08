@@ -1,4 +1,4 @@
-package com.comp6000.backend.genetic.feature.decors;
+package com.comp6000.backend.genetic.feature.decor;
 
 import com.comp6000.backend.genetic.feature.FeatureService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
