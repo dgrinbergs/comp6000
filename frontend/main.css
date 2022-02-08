@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type=text] {
+  @apply form-input;
+  @apply rounded-md;
+  @apply w-fit;
+}
+
+input[type=radio] {
+  @apply form-radio;
+}
+
+.primary-button {
+  @apply w-fit;
+  @apply inline-flex items-center px-4 py-2;
+  @apply font-semibold leading-6 text-sm shadow;
+  @apply rounded-xl;
+  @apply text-stone-100;
+  @apply bg-gradient-to-r from-cyan-500 to-blue-500;
+  @apply shadow-lg shadow-cyan-500/50;
+  @apply cursor-pointer;
+}
+
