@@ -76,3 +76,24 @@ features:
     - displayName: Polished Limestone
       name: polishedlimestone
       path: /some/path/features/wall/polishedlimestone.sch
+  doors:
+    - name: oak
+      path: /some/path/features/door/oak.sch
+  roof:
+    - name: oak
+      path: /some/path/features/roof/oak.sch
+  corners:
+    - name: oak
+      path: /some/path/features/corner.sch
+  doornum:
+    - name: 1
+      path: /some/path/features/doornum.sch
+  window:
+    - name: 1x1
+      path: /some/path/features/window.sch
+  bed:
+    - name: red
+      path: /some/path/features/bed.sch
+  decor:
+    - name: chest
+      path: /some/path/features/decor.sch
