@@ -13,7 +13,7 @@ import com.comp6000.backend.genetic.feature.window.Window;
 import java.util.UUID;
 
 public class BuildingFactory {
-
+  //each feature
   private Floor floor;
   private Perimeter perimeter;
   private Window window;
