@@ -5,6 +5,7 @@
 input[type=text] {
   @apply form-input;
   @apply rounded-md;
+  @apply w-fit;
 }
 
 input[type=radio] {
