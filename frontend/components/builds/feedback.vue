@@ -17,10 +17,10 @@ export default Vue.extend({
   name: 'BuildsFeedback',
   components: {BuildsCard},
   computed: {
-    currentIteration() {
+    currentIteration(): Number {
       return this.$store.getters["builds/currentIteration"];
     },
-    population() {
+    population(): Object[] {
       return this.$store.getters["builds/iteration"](this.currentIteration);
     },
   },
