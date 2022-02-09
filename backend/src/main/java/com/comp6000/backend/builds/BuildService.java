@@ -21,14 +21,12 @@ public class BuildService {
     this.builds = Collections.synchronizedList(new ArrayList<>());
   }
 
-  BuildDetails saveBuildDetails(BuildDetails buildDetails) {
-    var newBuildDetails = new BuildDetails();
-    newBuildDetails.setSeason(buildDetails.getSeason());
-    newBuildDetails.setBuildingProperties(buildDetails.getBuildingProperties());
+  BuildDetails startNewBuild() {
+    var buildDetails = new BuildDetails();
 
-    this.builds.add(newBuildDetails);
-    this.eventPublisher.publishEvent(new BuildCreatedEvent(newBuildDetails));
-    return newBuildDetails;
+    this.builds.add(buildDetails);
+    this.eventPublisher.publishEvent(new BuildCreatedEvent(buildDetails));
+    return buildDetails;
   }
 
 }

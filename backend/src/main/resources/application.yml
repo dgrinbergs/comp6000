@@ -1,0 +1,78 @@
+server:
+  error:
+    include-message: always
+
+limits:
+  building:
+    height:
+      min: ${BUILDING_HEIGHT_MIN:10}
+      max: ${BUILDING_HEIGHT_MAX:40}
+
+api:
+  ws:
+    schematics:
+      endpoint: ${API_WS_SCHEMATIC_ENDPOINT:/ws/schematics}
+
+features:
+  floors:
+    - displayName:
+      name: stone
+      path: /some/path/features/floor/stone.sch
+    - displayName:
+      name: oak
+      path: /some/path/features/floor/oak.sch
+    - displayName:
+      name: brick
+      path: /some/path/features/floor/brick.sch
+    - displayName: Stone Brick
+      name: stonebrick
+      path: /some/path/features/floor/stonebrick.sch
+    - displayName:
+      name: marble
+      path: /some/path/features/floor/marble.sch
+    - displayName:
+      name: sandstone
+      path: /some/path/features/floor/sandstone.sch
+    - displayName: Smooth Stone
+      name: smoothstone
+      path: /some/path/features/floor/smoothstone.sch
+    - displayName:
+      name: wool
+      path: /some/path/features/floor/wool.sch
+    - displayName: Polished Andesite
+      name: polishedandesite
+      path: /some/path/features/floor/polishedandesite.sch
+    - displayName:
+      name: diorite
+      path: /some/path/features/floor/diorite.sch
+  walls:
+    - displayName:
+      name: brick
+      path: /some/path/features/wall/brick.sch
+    - displayName:
+      name: oak
+      path: /some/path/features/wall/oak.sch
+    - displayName:
+      name: marble
+      path: /some/path/features/wall/marble.sch
+    - displayName: Smooth Stone
+      name: smoothstone
+      path: /some/path/features/wall/smoothstone.sch
+    - displayName: Stone Brick
+      name: stonebrick
+      path: /some/path/features/wall/stonebrick.sch
+    - displayName:
+      name: cobblestone
+      path: /some/path/features/wall/cobblestone.sch
+    - displayName:
+      name: quartz
+      path: /some/path/features/wall/quartz.sch
+    - displayName: Nether Brick
+      name: netherbrick
+      path: /some/path/features/wall/netherbrick.sch
+    - displayName:
+      name: granite
+      path: /some/path/features/wall/netherbrick.sch
+    - displayName: Polished Limestone
+      name: polishedlimestone
+      path: /some/path/features/wall/polishedlimestone.sch
