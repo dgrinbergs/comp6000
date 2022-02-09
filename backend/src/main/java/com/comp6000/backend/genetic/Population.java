@@ -1,6 +1,6 @@
 package com.comp6000.backend.genetic;
 
-import com.comp6000.backend.genetic.feature.building.Building;
+import com.comp6000.backend.genetic.feature.Building;
 
 import java.util.List;
 
