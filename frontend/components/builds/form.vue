@@ -1,7 +1,5 @@
 <template>
-  <form @submit.prevent="generate" id="generate-form">
-    <input type="submit" value="Generate" class="primary-button">
-  </form>
+  <button @click="generate" class="primary-button">Generate</button>
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -15,14 +13,3 @@ export default Vue.extend({
   }
 })
 </script>
-<style>
-#generate-form {
-  @apply flex flex-col;
-  @apply space-y-4;
-  @apply my-4;
-}
-
-label {
-  @apply capitalize;
-}
-</style>

@@ -1,6 +1,7 @@
 export const state = () => ({
   minimumGenerations: 3,
   minimumSelected: 3,
+  done: false,
   currentPopulation: -1,
   populations: [],
 });
@@ -19,6 +20,9 @@ export const mutations = {
       state.populations[state.currentPopulation].selected = selected.filter(s => s !== buildingId)
     }
   },
+  toggleDone(state) {
+    state.done = !state.done;
+  }
 };
 
 export const actions = {
@@ -37,6 +41,9 @@ export const actions = {
     }).then(response => {
       commit('addPopulation', response.data);
     })
+  },
+  toggleDone({commit}) {
+    commit('toggleDone');
   }
 };
 
@@ -58,5 +65,8 @@ export const getters = {
   },
   minimumSelected: state => {
     return state.minimumSelected;
+  },
+  done: state => {
+    return state.done;
   }
 };
