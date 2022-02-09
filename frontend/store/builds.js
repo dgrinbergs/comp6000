@@ -1,13 +1,9 @@
 export const state = () => ({
-  seasons: [],
   currentPopulation: -1,
   populations: [],
-})
+});
 
 export const mutations = {
-  setSeasons(state, seasons) {
-    state.seasons = seasons;
-  },
   addPopulation(state, population) {
     state.populations.unshift(population);
     state.currentPopulation = state.currentPopulation += 1;
@@ -21,25 +17,18 @@ export const mutations = {
       state.populations[state.currentPopulation].selected = selected.filter(s => s !== uuid)
     }
   },
-}
+};
 
 export const actions = {
-  fetchSeasons({commit}) {
-    this.$axios.get('/api/seasons').then(response => commit('setSeasons', response.data));
-  },
-  addPopulation({commit}, population) {
-    commit('addPopulation', population);
-  },
   toggleBuildingSelection({commit}, building) {
     commit('toggleBuildingSelection', building);
   },
   generate({commit}) {
-
+    this.$axios.post('/api/builds').then(response => {
+      commit('addPopulation', response.data.initialPopulation);
+    });
   },
   submitFeedback({commit, state}) {
-
-    console.log(state.populations[state.currentPopulation]);
-
     this.$axios.post('/api/feedback', {
       populationId: state.populations[state.currentPopulation].populationId,
       selected: state.populations[state.currentPopulation].selected,
@@ -47,12 +36,9 @@ export const actions = {
       commit('addPopulation', response.data);
     })
   }
-}
+};
 
 export const getters = {
-  seasons: state => {
-    return state.seasons;
-  },
   currentPopulation: state => {
     return state.currentPopulation;
   },
@@ -62,14 +48,4 @@ export const getters = {
   isSelected: state => building => {
     return state.populations[state.currentPopulation].selected.includes(building.uuid);
   }
-}
-
-const shuffle = array => {
-  let currentIndex = array.length,  randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
-}
+};

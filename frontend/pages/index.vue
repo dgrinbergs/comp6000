@@ -15,7 +15,6 @@
 import Vue from 'vue'
 import BuildsFeedback from "~/components/builds/feedback.vue";
 import BuildsForm from "~/components/builds/form.vue";
-import {Population} from "~/types/Population";
 
 export default Vue.extend({
   name: 'IndexPage',
@@ -34,7 +33,7 @@ export default Vue.extend({
       }
 
     },
-    currentPopulation(): Population {
+    currentPopulation(): number {
       return this.$store.getters["builds/currentPopulation"];
     }
   },

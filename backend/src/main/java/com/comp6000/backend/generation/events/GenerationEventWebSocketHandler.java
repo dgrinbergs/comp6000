@@ -44,7 +44,7 @@ public class GenerationEventWebSocketHandler implements WebSocketHandler {
             var buildDetails = (BuildDetails) event.getSource();
             var schematic = generationService.generateSchematicForBuild(buildDetails);
             return objectMapper.writeValueAsString(new GenerationDetails(
-                buildDetails.getUuid(),
+                buildDetails.getBuildId(),
                 schematic
             ));
           } catch (JsonProcessingException e) {

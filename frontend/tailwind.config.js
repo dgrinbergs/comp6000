@@ -1,4 +1,4 @@
-module.exports = {
+export const config = {
   content: [
     "./components/**/*.{js,vue,ts}",
     "./layouts/**/*.vue",

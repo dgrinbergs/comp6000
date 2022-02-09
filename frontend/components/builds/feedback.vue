@@ -6,7 +6,7 @@
     <div id="population-grid">
       <BuildsCard v-for="(building, index) in buildings" :key="index+1" :building="building"/>
     </div>
-    <button @click="generateNext" class="primary-button">Generate next population</button>
+    <button @click="submitFeedback" class="primary-button">Submit Feedback</button>
   </div>
 </template>
 <script lang="ts">
@@ -30,7 +30,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    generateNext() {
+    submitFeedback() {
       this.$store.dispatch('builds/submitFeedback');
     }
   }

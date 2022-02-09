@@ -29,7 +29,7 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
       var buildDetails = (BuildDetails) event.getSource();
       var schematicUrl = generationService.generateSchematicForBuild(buildDetails);
       responseObserver.onNext(GenerationDetails.newBuilder()
-          .setBuildId(buildDetails.getUuid().toString())
+          .setBuildId(buildDetails.getBuildId().toString())
           .setSchematicUrl(schematicUrl)
           .build());
     });

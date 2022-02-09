@@ -16,7 +16,7 @@ public class Population {
     this.selected = selected;
   }
 
-  public String getUuid() {
+  public String getPopulationId() {
     return populationId;
   }
 

@@ -4,11 +4,11 @@
     <table>
       <tr>
         <th>Floor</th>
-        <td>{{building.floor.displayName || building.floor.name}}</td>
+        <td>{{ floor }}</td>
       </tr>
       <tr>
         <th>Walls</th>
-        <td>{{building.perimeter.north.displayName || building.perimeter.north.name}}</td>
+        <td>{{ walls }}</td>
       </tr>
     </table>
   </div>
@@ -26,12 +26,20 @@ export default Vue.extend({
     }
   },
   computed: {
+    floor(): string {
+      const building = this.building;
+      return building.floor.displayName || building.floor.name;
+    },
+    walls(): string {
+      const building = this.building;
+      return building.perimeter.north.displayName || building.perimeter.north.name;
+    },
     isSelected(): Boolean {
       return this.$store.getters["builds/isSelected"](this.building);
     }
   },
   methods: {
-    toggleBuildingSelection(){
+    toggleBuildingSelection() {
       this.$store.dispatch('builds/toggleBuildingSelection', this.building)
     }
   }
