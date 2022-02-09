@@ -1,44 +1,14 @@
 <template>
   <div class="build-card" :class="{'selected': isSelected}" @click="toggleBuildingSelection">
-    <div class="h-36 w-36 bg-stone-200"></div>
-    <table>
-      <tr>
-        <th>Floor</th>
-        <td>{{ floor }}</td>
-      </tr>
-      <tr>
-        <th>Walls</th>
-        <td>{{ walls }}</td>
-      </tr>
-      <tr>
-        <th>Window</th>
-        <td>{{building.window.displayName || building.window.name}}</td>
-      </tr>
-      <tr>
-        <th>Roof</th>
-        <td>{{building.roof.displayName || building.roof.name}}</td>
-      </tr>
-      <tr>
-        <th>Door</th>
-        <td>{{building.door.displayName || building.door.name}}</td>
-      </tr>
-      <tr>
-        <th>Corner Perimeter</th>
-        <td>{{building.cornerPerimeter.north.displayName || building.cornerPerimeter.north.name}}</td>
-      </tr>
-      <tr>
-        <th>DoorNum</th>
-        <td>{{building.doorNum.displayName || building.doorNum.name}}</td>
-      </tr>
-      <tr>
-        <th>Bed</th>
-        <td>{{building.bed.displayName || building.bed.name}}</td>
-      </tr>
-      <tr>
-        <th>Decor</th>
-        <td>{{building.decor.displayName || building.decor.name}}</td>
-      </tr>
-    </table>
+    <div v-for="(details, feature) in building.features" :key="feature" class="feature">
+      <div class="name">{{feature}}</div>
+      <div class="details">
+        <div class="icon">
+          <img :src="details.icon" alt="feature texture icon">
+        </div>
+        <div>{{details.name}}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -54,14 +24,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    floor(): string {
-      const building = this.building;
-      return building.floor.displayName || building.floor.name;
-    },
-    walls(): string {
-      const building = this.building;
-      return building.perimeter.north.displayName || building.perimeter.north.name;
-    },
     isSelected(): Boolean {
       return this.$store.getters["builds/isSelected"](this.building);
     }
@@ -74,15 +36,35 @@ export default Vue.extend({
 })
 </script>
 <style lang="postcss">
+.selected {
+  @apply bg-green-100;
+}
+
 .build-card {
   @apply cursor-pointer;
   @apply flex flex-col;
   @apply items-center;
-  @apply p-2;
+  @apply p-4;
   @apply border border-black rounded-md;
 }
 
-.selected {
-  @apply bg-green-100;
+.feature {
+  @apply w-full;
+  @apply flex flex-row items-center justify-between;
+  @apply space-x-4 space-y-2;
+}
+
+.feature > .name {
+  @apply w-1/3 text-right;
+}
+
+.feature .details {
+  @apply grow;
+  @apply flex flex-col;
+  @apply items-center;
+}
+
+.feature .icon {
+  @apply w-12;
 }
 </style>

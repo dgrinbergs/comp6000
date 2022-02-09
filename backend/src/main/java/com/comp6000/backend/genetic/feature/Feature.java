@@ -8,13 +8,16 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public enum Feature {
 
+  // Regular blocks
+  CORNER(Material.regularBlocks()),
+  FLOOR(Material.regularBlocks()),
+  ROOF(Material.regularBlocks()),
+  WALL(Material.regularBlocks()),
+
+  // Special blocks
   BED(Material.bedBlocks()),
   DOOR(Material.doorBlocks()),
   WINDOW(Material.glassBlocks()),
-  CORNER(List.of(Material.values())),
-  FLOOR(List.of(Material.values())),
-  ROOF(List.of(Material.values())),
-  WALL(List.of(Material.values())),
   ;
 
   private final List<Material> materials;
