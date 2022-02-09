@@ -2,12 +2,13 @@
   <div id="feedback">
     <div id="feedback-header">
       <h3 id="feedback-generation">Generation {{currentPopulation + 1}}</h3>
+      <p>{{instructions}}</p>
     </div>
     <div id="population-grid">
       <BuildsCard v-for="(building, index) in buildings" :key="index+1" :building="building"/>
     </div>
     <div id="actions">
-      <button @click="submitFeedback" class="primary-button">Submit Feedback</button>
+      <button :disabled="!submittable" @click="submitFeedback" class="primary-button" :class="{disabled : !submittable}">Submit Feedback</button>
       <button v-if="completable" @click="done" class="secondary-button">Done</button>
     </div>
   </div>
@@ -22,6 +23,14 @@ export default Vue.extend({
   name: 'BuildsFeedback',
   components: {BuildsCard},
   computed: {
+    instructions(): string {
+      const difference = this.$store.getters["builds/minimumSelected"] - this.$store.getters['builds/selected'].length;
+      if (difference > 0) {
+        return `Select ${difference} more ${difference > 1 ? 'buildings' : 'building'} that you like`;
+      } else {
+        return "You can submit your feedback";
+      }
+    },
     currentPopulation(): number {
       return this.$store.getters["builds/currentPopulation"];
     },
@@ -33,6 +42,9 @@ export default Vue.extend({
     },
     completable(): boolean {
       return this.currentPopulation >= this.$store.getters["builds/minimumGenerations"];
+    },
+    submittable(): boolean {
+      return this.$store.getters['builds/selected'].length >= this.$store.getters["builds/minimumSelected"];
     }
   },
   methods: {

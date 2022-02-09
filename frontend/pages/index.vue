@@ -28,10 +28,11 @@ export default Vue.extend({
     userInstructions(): string {
       if (this.currentPopulation < 0) {
         return "First, fill out some details below:";
+      } else if(this.currentPopulation >= this.$store.getters["builds/minimumGenerations"]) {
+        return "Pick your favourite builds and generate the next generation, or press done if you're finished."
       } else {
         return "Pick your favourite builds and generate the next generation"
       }
-
     },
     currentPopulation(): number {
       return this.$store.getters["builds/currentPopulation"];
