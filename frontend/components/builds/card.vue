@@ -24,11 +24,11 @@
       </tr>
       <tr>
         <th>Corner Perimeter</th>
-        <td>{{building.cornerperimeter.displayName || building.cornerperimeter.name}}</td>
+        <td>{{building.cornerPerimeter.north.displayName || building.cornerPerimeter.north.name}}</td>
       </tr>
       <tr>
         <th>DoorNum</th>
-        <td>{{building.doornum.displayName || building.doornum.name}}</td>
+        <td>{{building.doorNum.displayName || building.doorNum.name}}</td>
       </tr>
       <tr>
         <th>Bed</th>
@@ -36,7 +36,7 @@
       </tr>
       <tr>
         <th>Decor</th>
-        <td>{{building.decor.displayName || building.decor.Name}}</td>
+        <td>{{building.decor.displayName || building.decor.name}}</td>
       </tr>
     </table>
   </div>
