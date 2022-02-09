@@ -3,22 +3,20 @@ package com.comp6000.backend.genetic.feature.building;
 import com.comp6000.backend.genetic.feature.floor.Floor;
 import com.comp6000.backend.genetic.feature.wall.Perimeter;
 
-import java.util.UUID;
-
 public class Building {
 
-  private final UUID uuid;
+  private final String buildingId;
   private final Floor floor;
   private final Perimeter perimeter;
 
-  protected Building(UUID uuid, Floor floor, Perimeter perimeter) {
-    this.uuid = uuid;
+  protected Building(String buildingId, Floor floor, Perimeter perimeter) {
+    this.buildingId = buildingId;
     this.floor = floor;
     this.perimeter = perimeter;
   }
 
-  public UUID getUuid() {
-    return uuid;
+  public String getBuildingId() {
+    return buildingId;
   }
 
   public Floor getFloor() {

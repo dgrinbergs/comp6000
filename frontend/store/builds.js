@@ -8,13 +8,13 @@ export const mutations = {
     state.populations.unshift(population);
     state.currentPopulation = state.currentPopulation += 1;
   },
-  toggleBuildingSelection(state, {uuid}) {
+  toggleBuildingSelection(state, {buildingId}) {
     let selected = state.populations[state.currentPopulation].selected;
 
-    if(!selected.includes(uuid)) {
-      selected.push(uuid);
+    if(!selected.includes(buildingId)) {
+      selected.push(buildingId);
     } else {
-      state.populations[state.currentPopulation].selected = selected.filter(s => s !== uuid)
+      state.populations[state.currentPopulation].selected = selected.filter(s => s !== buildingId)
     }
   },
 };
@@ -46,6 +46,6 @@ export const getters = {
     return state.populations[currentPopulation];
   },
   isSelected: state => building => {
-    return state.populations[state.currentPopulation].selected.includes(building.uuid);
+    return state.populations[state.currentPopulation].selected.includes(building.buildingId);
   }
 };

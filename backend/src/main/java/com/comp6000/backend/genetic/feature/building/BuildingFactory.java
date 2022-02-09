@@ -21,7 +21,7 @@ public class BuildingFactory {
   }
 
   public Building build() {
-    return new Building(UUID.randomUUID(), floor, perimeter);
+    return new Building(UUID.randomUUID().toString(), floor, perimeter);
   }
 
 }

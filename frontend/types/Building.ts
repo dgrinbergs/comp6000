@@ -1,5 +1,5 @@
 export type Building = {
-  uuid: String,
+  buildingId: String,
   floor: Floor,
   perimeter: Perimeter
 }
