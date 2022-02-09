@@ -5,7 +5,7 @@ export const state = () => ({
 
 export const mutations = {
   addPopulation(state, population) {
-    state.populations.unshift(population);
+    state.populations.push(population);
     state.currentPopulation = state.currentPopulation += 1;
   },
   toggleBuildingSelection(state, {buildingId}) {
@@ -42,8 +42,8 @@ export const getters = {
   currentPopulation: state => {
     return state.currentPopulation;
   },
-  population: state => currentPopulation => {
-    return state.populations[currentPopulation];
+  population: state => population => {
+    return state.populations[population];
   },
   isSelected: state => building => {
     return state.populations[state.currentPopulation].selected.includes(building.buildingId);
