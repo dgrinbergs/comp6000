@@ -1,10 +1,10 @@
 <template>
   <div id="feedback">
     <div id="feedback-header">
-      <h3 id="feedback-generation">Generation {{currentIteration + 1}}</h3>
+      <h3 id="feedback-generation">Generation {{currentPopulation + 1}}</h3>
     </div>
     <div id="population-grid">
-      <BuildsCard v-for="(building, index) in buildings" :key="index+1" :id="index+1" :building="building"/>
+      <BuildsCard v-for="(building, index) in buildings" :key="index+1" :building="building"/>
     </div>
     <button @click="generateNext" class="primary-button">Generate next population</button>
   </div>
@@ -12,21 +12,26 @@
 <script lang="ts">
 import Vue from 'vue'
 import BuildsCard from "~/components/builds/card.vue";
+import {Building} from "~/types/Building";
+import {Population} from "~/types/Population";
 
 export default Vue.extend({
   name: 'BuildsFeedback',
   components: {BuildsCard},
   computed: {
-    currentIteration(): Number {
-      return this.$store.getters["builds/currentIteration"];
+    currentPopulation(): number {
+      return this.$store.getters["builds/currentPopulation"];
     },
-    buildings(): Object[] {
-      return this.$store.getters["builds/iteration"](this.currentIteration).buildings;
+    population(): Population {
+      return this.$store.getters["builds/population"](this.currentPopulation);
+    },
+    buildings(): Building[] {
+      return this.population.buildings;
     },
   },
   methods: {
     generateNext() {
-      // this.$store.dispatch("builds/generateNext");
+      this.$store.dispatch('builds/submitFeedback');
     }
   }
 })

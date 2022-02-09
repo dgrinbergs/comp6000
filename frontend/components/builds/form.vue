@@ -19,6 +19,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import {Population} from "~/types/Population";
 
 export default Vue.extend({
   name: 'BuildsForm',
@@ -43,10 +44,16 @@ export default Vue.extend({
   },
   methods: {
     onSubmit() {
+      type R = {
+        data: {
+          initialPopulation: Population
+        }
+      };
+
       this.$axios.post('/api/builds', {
         'season': this.seasons[this.build.season],
         'building': this.build.building
-      }).then(response => this.$store.dispatch('builds/addIteration', response.data.initialPopulation));
+      }).then((response: R) => this.$store.dispatch('builds/addPopulation', response.data.initialPopulation));
     }
   }
 })

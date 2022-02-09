@@ -15,12 +15,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-
-type Building  = {
-  uuid: String,
-  floor: String,
-  perimeter: String
-}
+import {Building} from "~/types/Building";
 
 export default Vue.extend({
   name: 'BuildsCard',

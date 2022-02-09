@@ -5,7 +5,7 @@
       <h3>{{ userInstructions }}</h3>
     </div>
 
-    <BuildsForm v-if="currentIteration < 0"/>
+    <BuildsForm v-if="currentPopulation < 0"/>
     <BuildsFeedback v-else/>
 
   </div>
@@ -15,6 +15,7 @@
 import Vue from 'vue'
 import BuildsFeedback from "~/components/builds/feedback.vue";
 import BuildsForm from "~/components/builds/form.vue";
+import {Population} from "~/types/Population";
 
 export default Vue.extend({
   name: 'IndexPage',
@@ -25,16 +26,16 @@ export default Vue.extend({
     }
   },
   computed: {
-    userInstructions() {
-      if (this.currentIteration < 0) {
+    userInstructions(): string {
+      if (this.currentPopulation < 0) {
         return "First, fill out some details below:";
       } else {
         return "Pick your favourite builds and generate the next generation"
       }
 
     },
-    currentIteration() {
-      return this.$store.getters["builds/currentIteration"];
+    currentPopulation(): Population {
+      return this.$store.getters["builds/currentPopulation"];
     }
   },
 })
