@@ -1,4 +1,5 @@
 export const state = () => ({
+  minimumGenerations: 3,
   currentPopulation: -1,
   populations: [],
 });
@@ -47,5 +48,8 @@ export const getters = {
   },
   isSelected: state => building => {
     return state.populations[state.currentPopulation].selected.includes(building.buildingId);
+  },
+  minimumGenerations: state => {
+    return state.minimumGenerations;
   }
 };

@@ -6,7 +6,10 @@
     <div id="population-grid">
       <BuildsCard v-for="(building, index) in buildings" :key="index+1" :building="building"/>
     </div>
-    <button @click="submitFeedback" class="primary-button">Submit Feedback</button>
+    <div id="actions">
+      <button @click="submitFeedback" class="primary-button">Submit Feedback</button>
+      <button v-if="completable" @click="done" class="secondary-button">Done</button>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -28,10 +31,16 @@ export default Vue.extend({
     buildings(): Building[] {
       return this.population.buildings;
     },
+    completable(): boolean {
+      return this.currentPopulation >= this.$store.getters["builds/minimumGenerations"];
+    }
   },
   methods: {
     submitFeedback() {
       this.$store.dispatch('builds/submitFeedback');
+    },
+    done() {
+
     }
   }
 })
@@ -53,6 +62,11 @@ export default Vue.extend({
   @apply text-sm py-2 px-3;
   @apply text-white;
   @apply bg-gradient-to-r from-purple-500 to-pink-500;
+}
+
+#feedback > #actions {
+  @apply flex flex-row;
+  @apply justify-between;
 }
 
 #population-grid {

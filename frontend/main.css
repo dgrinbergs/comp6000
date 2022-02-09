@@ -12,6 +12,8 @@ input[type=radio] {
   @apply form-radio;
 }
 
+/*TODO: tidy up duplication with buttons. the only difference here are the gradients*/
+
 .primary-button {
   @apply w-fit;
   @apply inline-flex items-center px-4 py-2;
@@ -19,6 +21,17 @@ input[type=radio] {
   @apply rounded-xl;
   @apply text-stone-100;
   @apply bg-gradient-to-r from-cyan-500 to-blue-500;
+  @apply shadow-lg shadow-cyan-500/50;
+  @apply cursor-pointer;
+}
+
+.secondary-button {
+  @apply w-fit;
+  @apply inline-flex items-center px-4 py-2;
+  @apply font-semibold leading-6 text-sm shadow;
+  @apply rounded-xl;
+  @apply text-stone-100;
+  @apply bg-gradient-to-r from-sky-500 to-indigo-500;
   @apply shadow-lg shadow-cyan-500/50;
   @apply cursor-pointer;
 }
