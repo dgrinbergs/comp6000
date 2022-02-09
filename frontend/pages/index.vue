@@ -1,14 +1,18 @@
 <template>
   <div id="content">
-    <div class="mb-4">
-      <h1>Generate a new build</h1>
-      <h3>{{ userInstructions }}</h3>
+    <template v-if="backendAvailable">
+      <div class="mb-4">
+        <h1>Generate a new build</h1>
+        <h3>{{ userInstructions }}</h3>
+      </div>
+
+      <BuildsForm v-if="currentPopulation < 0"/>
+      <BuildsConnect v-else-if="done"/>
+      <BuildsFeedback v-else/>
+    </template>
+    <div v-else class="banner banner-error">
+      <p>The backend server is not running. It must be running before you can use this site. Refresh this page once it's running</p>
     </div>
-
-    <BuildsForm v-if="currentPopulation < 0"/>
-    <BuildsConnect v-else-if="done"/>
-    <BuildsFeedback v-else/>
-
   </div>
 </template>
 
@@ -24,7 +28,13 @@ export default Vue.extend({
   data() {
     return {
       status: 'pending',
+      backendAvailable: false
     }
+  },
+  created() {
+    this.$axios.get('/')
+      .then(() => this.backendAvailable = true)
+      .catch(() => console.error("Backend unavailable"));
   },
   computed: {
     userInstructions(): string {

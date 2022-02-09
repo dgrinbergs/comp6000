@@ -17,6 +17,16 @@ input[type=radio] {
   @apply cursor-not-allowed;
 }
 
+.banner {
+  @apply border-2 rounded-lg;
+  @apply px-4 py-2;
+}
+
+.banner-error {
+  @apply bg-red-200;
+  @apply border-red-400;
+}
+
 /*TODO: tidy up duplication with buttons. the only difference here are the gradients*/
 
 .primary-button {
