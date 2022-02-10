@@ -26,11 +26,9 @@ public class BuildsController {
   @CrossOrigin
   @PostMapping
   ResponseEntity<Map<String, Object>> createBuild() {
-    var initialPopulation = geneticAlgorithmService.createInitialPopulation();
-
     return ResponseEntity.ok(Map.of(
         "buildDetails", buildService.startNewBuild(),
-        "initialPopulation", initialPopulation
+        "initialPopulation", geneticAlgorithmService.createInitialPopulation()
     ));
   }
 }
