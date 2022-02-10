@@ -1,4 +1,4 @@
-FROM openjdk:16
+FROM eclipse-temurin:17-jre
 
 WORKDIR /minecraft-server
 
