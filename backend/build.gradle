@@ -5,11 +5,10 @@ plugins {
 }
 
 group = 'com.comp6000'
-sourceCompatibility = "17"
+sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
-    maven { url 'https://maven.enginehub.org/repo/' }
 }
 
 dependencies {
@@ -18,7 +17,6 @@ dependencies {
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation project(':grpc')
     implementation 'net.devh:grpc-server-spring-boot-starter:2.12.0.RELEASE'
-    implementation 'com.sk89q.worldedit:worldedit-core:7.2.9'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
