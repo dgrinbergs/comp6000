@@ -1,4 +1,4 @@
-# COMP6000 - Group Project
+# COMP6000 - SmartGen
 Final year group project.
 
 [![Build Status](https://ci.dgrinbergs.com/api/badges/dgrinbergs/comp6000/status.svg?ref=refs/heads/develop)](https://ci.dgrinbergs.com/dgrinbergs/comp6000)
