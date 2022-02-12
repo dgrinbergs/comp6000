@@ -1,15 +1,15 @@
-package com.comp6000.bukkit.build;
+package com.comp6000.bukkit.building;
 
 import org.bukkit.Location;
 
 import java.util.UUID;
 
-public class Build {
+public class Building {
 
   private final UUID id;
   private final Location spectateLocation;
 
-  public Build(UUID id, Location spectateLocation) {
+  public Building(UUID id, Location spectateLocation) {
     this.id = id;
     this.spectateLocation = spectateLocation;
   }

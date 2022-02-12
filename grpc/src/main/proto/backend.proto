@@ -6,10 +6,20 @@ option java_package = "com.comp6000.grpc";
 option java_multiple_files = true;
 
 service BackendService {
-  rpc GetBuilds(google.protobuf.Empty) returns (stream GenerationDetails) {}
+  rpc StreamCreateBuildingRequests(google.protobuf.Empty) returns (stream CreateBuildingRequest) {}
 }
 
-message GenerationDetails {
-  string buildId = 1;
-  string schematicUrl = 2;
+message CreateBuildingRequest {
+  string buildingId = 1;
+  BuildingDetails buildingDetails = 2;
+}
+
+message BuildingDetails {
+  string cornerBlockId = 1;
+  string floorBlockId = 2;
+  string roofBlockId = 3;
+  string wallBlockId = 4;
+  string bedBlockId = 5;
+  string doorBlockId = 6;
+  string windowBlockId = 7;
 }
