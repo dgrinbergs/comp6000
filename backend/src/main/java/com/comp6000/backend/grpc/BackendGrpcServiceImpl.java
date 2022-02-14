@@ -24,7 +24,7 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
   public void streamCreateBuildingRequests(Empty request, StreamObserver<CreateBuildingRequest> responseObserver) {
     buildingFlux.subscribe(building -> {
 
-      var buildingBetails = BuildingDetails.newBuilder()
+      var buildingDetails = BuildingDetails.newBuilder()
           .setCornerBlockId(building.cornerBlock().getMinecraftId())
           .setFloorBlockId(building.floorBlock().getMinecraftId())
           .setRoofBlockId(building.roofBlock().getMinecraftId())
@@ -36,7 +36,7 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
 
       responseObserver.onNext(CreateBuildingRequest.newBuilder()
           .setBuildingId(building.id().toString())
-          .setBuildingDetails(buildingBetails)
+          .setBuildingDetails(buildingDetails)
           .build());
     });
   }
