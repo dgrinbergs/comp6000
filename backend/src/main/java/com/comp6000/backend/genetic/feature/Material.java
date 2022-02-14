@@ -11,7 +11,7 @@ public enum Material {
   COBBLESTONE("minecraft:cobblestone", "Cobblestone", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/6/67/Cobblestone.png"),
   STONE("minecraft:stone", "Stone", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/d4/Stone.png"),
   BRICKS("minecraft:bricks", "Bricks", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/6/62/Bricks_JE5_BE3.png"),
-  SMOOTH_QUARTZ("minecraft:smooth_quartz", "Smooth Quartz", ""),
+  SMOOTH_QUARTZ("minecraft:smooth_quartz", "Smooth Quartz", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/de/Smooth_Quartz_Block_JE3_BE2.png"),
   OAK_PLANKS("minecraft:oak_planks", "Oak Planks", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c1/Oak_Planks.png"),
   OAK_LOG("minecraft:oak_log", "Oak Log", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/e9/Oak_Log_%28UD%29_JE5_BE3.png"),
   STONE_BRICKS("minecraft:stone_bricks", "Stone Bricks", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5a/Stone_Bricks_JE3_BE2.png"),
