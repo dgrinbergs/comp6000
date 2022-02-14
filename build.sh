@@ -7,15 +7,15 @@ rm -rf ./grpc/builds/libs
 
 cd backend
 chmod +x ./gradlew
-./gradlew bootJar
+./gradlew clean build
 cd ..
 
 cd bukkit-plugin
 chmod +x ./gradlew
-./gradlew build
+./gradlew clean build
 cd ..
 
 cd grpc
 chmod +x ./gradlew
-./gradlew build
+./gradlew clean build
 cd ..
