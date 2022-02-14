@@ -1,22 +1,14 @@
 package com.comp6000.backend.genetic.feature;
 
-import java.util.Map;
+import java.util.UUID;
 
-public class Building {
-
-  private final String buildingId;
-  private final Map<Feature, Material> features;
-
-  public Building(String buildingId, Map<Feature, Material> features) {
-    this.buildingId = buildingId;
-    this.features = features;
-  }
-
-  public String getBuildingId() {
-    return buildingId;
-  }
-
-  public Map<Feature, Material> getFeatures() {
-    return features;
-  }
-}
+public record Building(
+  UUID id,
+  Material cornerBlock,
+  Material floorBlock,
+  Material roofBlock,
+  Material wallBlock,
+  Material bedBlock,
+  Material doorBlock,
+  Material windowBlock
+){}
