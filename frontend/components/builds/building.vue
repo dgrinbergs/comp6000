@@ -1,12 +1,12 @@
 <template>
   <div class="build-card" :class="{'selected': isSelected}" @click="toggleBuildingSelection">
-    <div v-for="(details, feature) in building.features" :key="feature" class="feature">
-      <div class="name">{{feature}}</div>
+    <div v-for="({icon, name}, feature, index) in features" :key="index" class="feature">
+      <div class="name">{{ feature }}</div>
       <div class="details">
         <div class="icon">
-          <img :src="details.icon" alt="feature texture icon">
+          <img :src="icon" alt="feature texture icon">
         </div>
-        <div>{{details.name}}</div>
+        <div>{{ name }}</div>
       </div>
     </div>
   </div>
@@ -16,7 +16,9 @@ import Vue from 'vue'
 import {Building} from "~/types/Building";
 
 export default Vue.extend({
-  name: 'BuildsCard',
+  name: 'Building',
+  components: {},
+
   props: {
     building: {
       type: Object as () => Building,
@@ -26,6 +28,9 @@ export default Vue.extend({
   computed: {
     isSelected(): Boolean {
       return this.$store.getters["builds/isSelected"](this.building);
+    },
+    features(): Map<String, any> {
+      return this.building.features;
     }
   },
   methods: {

@@ -1,9 +1,9 @@
 export type Building = {
-  buildingId: String,
-  features: Feature[]
+  id: String,
+  features: Map<String, Material>
 }
 
-type Feature = {
-  name: string,
-  icon: string,
+type Material = {
+  name: String,
+  icon: String,
 }

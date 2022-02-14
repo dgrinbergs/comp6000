@@ -1,6 +1,7 @@
 package com.comp6000.backend.genetic.feature;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -40,8 +41,11 @@ public enum Material {
   BED_GRAY("minecraft:gray_bed", "Gray Bed", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/4e/Gray_Bed.png"),
   ;
 
+  @JsonIgnore
   private final String minecraftId;
+
   private final String name;
+
   private final String icon;
 
   Material(String minecraftId, String name, String icon) {
