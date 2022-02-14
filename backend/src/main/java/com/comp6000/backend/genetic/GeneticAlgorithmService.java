@@ -38,9 +38,9 @@ public class GeneticAlgorithmService {
       var floorBlock = regularBlocks.get(random.nextInt(regularBlocks.size()));
       var roofBlock = regularBlocks.get(random.nextInt(regularBlocks.size()));
       var wallBlock = regularBlocks.get(random.nextInt(regularBlocks.size()));
-      var bedBlock = bedBlocks.get(random.nextInt(regularBlocks.size()));
-      var doorBlock = doorBlocks.get(random.nextInt(regularBlocks.size()));
-      var windowBlock = glassBlocks.get(random.nextInt(regularBlocks.size()));
+      var bedBlock = bedBlocks.get(random.nextInt(bedBlocks.size()));
+      var doorBlock = doorBlocks.get(random.nextInt(doorBlocks.size()));
+      var windowBlock = glassBlocks.get(random.nextInt(glassBlocks.size()));
 
       var building = new Building(
           UUID.randomUUID(),

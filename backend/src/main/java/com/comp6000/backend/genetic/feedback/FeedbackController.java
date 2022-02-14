@@ -24,7 +24,7 @@ public class FeedbackController {
   @CrossOrigin
   @PostMapping
   ResponseEntity<Population> submitFeedback(@RequestBody FeedbackRequest request) {
-    LOGGER.info("Received feedback for {}", request.getPopulationId());
+    LOGGER.info("Received feedback for {}", request.populationId());
     return ResponseEntity.ok(geneticAlgorithmService.createInitialPopulation());
   }
 
