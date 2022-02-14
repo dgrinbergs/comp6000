@@ -27,7 +27,6 @@ public enum Material {
   DOOR_OAK("minecraft:oak_door", "Oak Door", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/0/0e/Oak_Door_JE8.png"),
   DOOR_BIRCH("minecraft:birch_door", "Birch Door", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/49/Birch_Door_JE4.png"),
   DOOR_SPRUCE("minecraft:spruce_door", "Spruce Door", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/2/2a/Spruce_Door_JE4.png"),
-
   // Bed
   BED_WHITE("minecraft:white_bed", "White Bed", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/0/09/White_Bed_%28N%29.png"),
   BED_LIGHT_BLUE("minecraft:light_blue_bed", "Light-blue Bed", "https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/e0/Light_Blue_Bed.png"),
