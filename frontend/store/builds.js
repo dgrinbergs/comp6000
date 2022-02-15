@@ -1,7 +1,7 @@
 export const state = () => ({
-  minimumGenerations: 3,
-  minimumSelected: 3,
-  done: false,
+  minimumGenerations: 1,
+  minimumSelected: 2,
+  complete: false,
   currentPopulation: -1,
   populations: [],
 });
@@ -20,8 +20,8 @@ export const mutations = {
       state.populations[state.currentPopulation].selected = selected.filter(s => s !== id)
     }
   },
-  toggleDone(state) {
-    state.done = !state.done;
+  complete(state) {
+    state.complete = true;
   }
 };
 
@@ -42,8 +42,9 @@ export const actions = {
       commit('addPopulation', response.data);
     })
   },
-  toggleDone({commit}) {
-    commit('toggleDone');
+  async complete({commit}, buildingId) {
+    await this.$axios.post('/api/builds/done',{buildingId});
+    commit('complete');
   }
 };
 
@@ -54,19 +55,19 @@ export const getters = {
   population: state => population => {
     return state.populations[population];
   },
+  selected: state => {
+    return state.populations[state.currentPopulation].selected || [];
+  },
   isSelected: state => ({id}) => {
     return state.populations[state.currentPopulation].selected.includes(id);
   },
   minimumGenerations: state => {
     return state.minimumGenerations;
   },
-  selected: state => {
-    return state.populations[state.currentPopulation].selected;
-  },
   minimumSelected: state => {
     return state.minimumSelected;
   },
-  done: state => {
-    return state.done;
+  complete: state => {
+    return state.complete;
   }
 };
