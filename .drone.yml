@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: test backend
-    image: openjdk:17-alpine
+    image: eclipse-temurin:17
     commands:
       - cd backend
       - chmod +x gradlew
