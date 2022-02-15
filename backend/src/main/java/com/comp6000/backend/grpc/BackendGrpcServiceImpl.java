@@ -29,7 +29,7 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
   public void consumeBuilding(Building building) {
     sink.emitNext(building, (signalType, emitResult) -> {
       LOGGER.error(signalType.toString());
-      return true; //TODO: find out what this does
+      return true; //try sending the signal again
     });
     LOGGER.info("queue has {} items.", queue.size());
   }

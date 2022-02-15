@@ -16,18 +16,20 @@ import java.util.stream.Collectors;
 @Service
 public class GeneticAlgorithmService {
 
-  private final BackendGrpcServiceImpl grpcService;
-
   private Population currentPopulation;
 
+  private final BackendGrpcServiceImpl grpcService;
+
   private static final int SIZE = 10;
+
+  private static int GEN = -1;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GeneticAlgorithmService.class);
 
   @Autowired
   public GeneticAlgorithmService(BackendGrpcServiceImpl grpcService) {
     this.grpcService = grpcService;
-    this.currentPopulation = null;
+    currentPopulation = new Population();
   }
 
   public Mono<Population> createInitialPopulation() {
@@ -57,22 +59,19 @@ public class GeneticAlgorithmService {
       buildings.add(building);
     }
 
-    LOGGER.info("Sending building {}", buildings.get(0).id());
-    grpcService.consumeBuilding(buildings.get(0));
-    LOGGER.info("Sent building");
-
     var population = new Population(
         buildings,
         List.of()
     );
 
-    this.currentPopulation = population;
+    currentPopulation = population;
+    GEN++;
 
     return Mono.just(population);
   }
 
   public Mono<Population> acceptFeedback(List<String> selectedBuildings) {
-    var currentPopulation = this.currentPopulation.buildings();
+    var currentPopulation = this.currentPopulation.getBuildings();
     var newPopulation = currentPopulation.stream()
         .filter(building -> selectedBuildings.contains(building.id()))
         .collect(Collectors.toCollection(ArrayList::new)
@@ -138,6 +137,20 @@ public class GeneticAlgorithmService {
 
     return Mono.just(new Population(newPopulation, List.of()));
   }
+
+  public void signalDone(String buildingId) {
+    LOGGER.info("Sending building {}", buildingId);
+
+    var building = currentPopulation.getBuildings()
+        .stream()
+        .filter(b -> b.id().equals(buildingId))
+        .findFirst()
+        .orElse(currentPopulation.getBuildings().get(0));
+
+    grpcService.consumeBuilding(building);
+    LOGGER.info("Sent building");
+  }
+
   //TODO: compare users favourite builds against the rest of the population
 
 }
