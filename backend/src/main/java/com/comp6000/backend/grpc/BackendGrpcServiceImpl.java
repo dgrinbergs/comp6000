@@ -24,13 +24,12 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
 
   public BackendGrpcServiceImpl() {
     this.sink = Sinks.many().unicast().onBackpressureBuffer(queue);
-//    sink.asFlux().delayElements(Duration.ofSeconds(5)).subscribe(b -> System.out.println());
   }
 
   public void consumeBuilding(Building building) {
     sink.emitNext(building, (signalType, emitResult) -> {
-      LOGGER.info(signalType.toString());
-      return true;
+      LOGGER.error(signalType.toString());
+      return true; //TODO: find out what this does
     });
     LOGGER.info("queue has {} items.", queue.size());
   }
