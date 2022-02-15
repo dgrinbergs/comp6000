@@ -11,13 +11,13 @@ export const mutations = {
     state.populations.push(population);
     state.currentPopulation = state.currentPopulation += 1;
   },
-  toggleBuildingSelection(state, {buildingId}) {
+  toggleBuildingSelection(state, {id}) {
     let selected = state.populations[state.currentPopulation].selected;
 
-    if(!selected.includes(buildingId)) {
-      selected.push(buildingId);
+    if(!selected.includes(id)) {
+      selected.push(id);
     } else {
-      state.populations[state.currentPopulation].selected = selected.filter(s => s !== buildingId)
+      state.populations[state.currentPopulation].selected = selected.filter(s => s !== id)
     }
   },
   toggleDone(state) {
@@ -31,7 +31,7 @@ export const actions = {
   },
   generate({commit}) {
     this.$axios.post('/api/builds').then(response => {
-      commit('addPopulation', response.data.initialPopulation);
+      commit('addPopulation', response.data);
     });
   },
   submitFeedback({commit, state}) {
@@ -54,8 +54,8 @@ export const getters = {
   population: state => population => {
     return state.populations[population];
   },
-  isSelected: state => building => {
-    return state.populations[state.currentPopulation].selected.includes(building.buildingId);
+  isSelected: state => ({id}) => {
+    return state.populations[state.currentPopulation].selected.includes(id);
   },
   minimumGenerations: state => {
     return state.minimumGenerations;

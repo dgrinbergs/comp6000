@@ -1,36 +1,58 @@
 package com.comp6000.backend.grpc;
 
-import com.comp6000.backend.builds.BuildDetails;
-import com.comp6000.backend.builds.events.BuildEvent;
-import com.comp6000.backend.generation.GenerationService;
+import com.comp6000.backend.genetic.Building;
 import com.comp6000.grpc.BackendServiceGrpc;
-import com.comp6000.grpc.GenerationDetails;
+import com.comp6000.grpc.BuildingDetails;
+import com.comp6000.grpc.CreateBuildingRequest;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.springframework.beans.factory.annotation.Autowired;
-import reactor.core.publisher.Flux;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import reactor.core.publisher.Sinks;
+
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 @GrpcService
 public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImplBase {
 
-  private final Flux<BuildEvent> buildEventFlux;
-  private final GenerationService generationService;
+  private final Sinks.Many<Building> sink;
+  private final Queue<Building> queue = new ArrayBlockingQueue<>(1);
 
-  @Autowired
-  public BackendGrpcServiceImpl(Flux<BuildEvent> buildEventFlux, GenerationService generationService) {
-    this.buildEventFlux = buildEventFlux;
-    this.generationService = generationService;
+  private static final Logger LOGGER = LoggerFactory.getLogger(BackendGrpcServiceImpl.class);
+
+  public BackendGrpcServiceImpl() {
+    this.sink = Sinks.many().unicast().onBackpressureBuffer(queue);
+  }
+
+  public void consumeBuilding(Building building) {
+    sink.emitNext(building, (signalType, emitResult) -> {
+      LOGGER.error(signalType.toString());
+      return true; //TODO: find out what this does
+    });
+    LOGGER.info("queue has {} items.", queue.size());
   }
 
   @Override
-  public void getBuilds(Empty request, StreamObserver<GenerationDetails> responseObserver) {
-    buildEventFlux.subscribe(event -> {
-      var buildDetails = (BuildDetails) event.getSource();
-      var schematicUrl = generationService.generateSchematicForBuild(buildDetails);
-      responseObserver.onNext(GenerationDetails.newBuilder()
-          .setBuildId(buildDetails.getBuildId().toString())
-          .setSchematicUrl(schematicUrl)
+  public void streamCreateBuildingRequests(Empty request, StreamObserver<CreateBuildingRequest> responseObserver) {
+    sink.asFlux()
+        .log()
+        .subscribe(building -> {
+
+      var buildingDetails = BuildingDetails.newBuilder()
+          .setCornerBlockId(building.cornerBlock().getMinecraftId())
+          .setFloorBlockId(building.floorBlock().getMinecraftId())
+          .setRoofBlockId(building.roofBlock().getMinecraftId())
+          .setWallBlockId(building.wallBlock().getMinecraftId())
+          .setBedBlockId(building.bedBlock().getMinecraftId())
+          .setDoorBlockId(building.doorBlock().getMinecraftId())
+          .setWindowBlockId(building.windowBlock().getMinecraftId())
+          .build();
+
+      responseObserver.onNext(CreateBuildingRequest.newBuilder()
+          .setBuildingId(building.id().toString())
+          .setBuildingDetails(buildingDetails)
           .build());
     });
   }

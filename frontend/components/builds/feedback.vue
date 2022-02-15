@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import BuildsCard from "~/components/builds/card.vue";
+import BuildsCard from "~/components/builds/building.vue";
 import {Building} from "~/types/Building";
 import {Population} from "~/types/Population";
 

@@ -2,10 +2,28 @@ kind: pipeline
 type: docker
 name: default
 
+platform:
+  os: linux
+  arch: arm64
+
 steps:
-  - name: test backend
+  - name: build backend
     image: eclipse-temurin:17
     commands:
       - cd backend
       - chmod +x gradlew
-      - ./gradlew test
+      - ./gradlew clean build
+      
+  - name: build bukkit-plugin
+    image: eclipse-temurin:17
+    commands:
+      - cd bukkit-plugin
+      - chmod +x gradlew
+      - ./gradlew clean build
+
+  - name: build grpc
+    image: eclipse-temurin:17
+    commands:
+      - cd grpc
+      - chmod +x gradlew
+      - ./gradlew clean build
