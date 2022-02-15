@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
-import java.util.UUID;
 
 public record Building(
-  UUID id,
+  String id,
   @JsonIgnore Material cornerBlock,
   @JsonIgnore Material floorBlock,
   @JsonIgnore Material roofBlock,
