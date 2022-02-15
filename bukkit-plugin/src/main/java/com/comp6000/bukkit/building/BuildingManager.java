@@ -39,7 +39,6 @@ public class BuildingManager {
     plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
       plugin.getLogger().info("Creating building " + id);
 
-      plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
       plugin.getLogger().info("Loading house schematic");
       Clipboard clipboard;
       try (var inputStream = getClass().getResourceAsStream("/house.schem")) {
