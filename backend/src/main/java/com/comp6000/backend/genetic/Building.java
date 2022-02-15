@@ -1,4 +1,4 @@
-package com.comp6000.backend.genetic.feature;
+package com.comp6000.backend.genetic;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,10 +1,11 @@
 package com.comp6000.backend.genetic;
 
-import com.comp6000.backend.genetic.feature.Building;
-import com.comp6000.backend.genetic.feature.Material;
+import com.comp6000.backend.grpc.BackendGrpcServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,18 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class GeneticAlgorithmService {
 
+  private final BackendGrpcServiceImpl grpcService;
+
   private static final int SIZE = 10;
 
-  private final Flux<Building> buildingFlux;
+  private static final Logger LOGGER = LoggerFactory.getLogger(GeneticAlgorithmService.class);
 
   @Autowired
-  public GeneticAlgorithmService(Flux<Building> buildingFlux) {
-    this.buildingFlux = buildingFlux;
+  public GeneticAlgorithmService(BackendGrpcServiceImpl grpcService) {
+    this.grpcService = grpcService;
   }
 
-  public Population createInitialPopulation() {
+  public Mono<Population> createInitialPopulation() {
     List<Building> buildings = new ArrayList<>(SIZE);
 
     for (int i = 0; i < SIZE; i++) {
@@ -50,18 +53,15 @@ public class GeneticAlgorithmService {
       buildings.add(building);
     }
 
-    publishBuilding(buildings.get(0)); //TODO remove this.
+    LOGGER.info("Sending building {}", buildings.get(0).id());
+    grpcService.consumeBuilding(buildings.get(0));
+    LOGGER.info("Sent building");
 
-    return new Population(
+    return Mono.just(new Population(
         UUID.randomUUID().toString(),
         buildings,
-        new ArrayList<>()
-    );
-
-  }
-
-  private void publishBuilding(Building building) {
-    Flux.concat(buildingFlux, Flux.just(building));
+        List.of()
+    ));
   }
 
   //TODO: compare users favourite builds against the rest of the population
