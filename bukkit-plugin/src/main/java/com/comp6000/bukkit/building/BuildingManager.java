@@ -36,33 +36,42 @@ public class BuildingManager {
   }
 
   public void createBuilding(UUID id, BuildingDetails details) {
-    plugin.getLogger().info("Creating building " + id);
+    plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
+      plugin.getLogger().info("Creating building " + id);
 
-    plugin.getLogger().info("Loading house schematic");
-    Clipboard clipboard;
-    try (var inputStream = getClass().getResourceAsStream("/house.schem")) {
-      clipboard = BuiltInClipboardFormat.FAST.load(inputStream);
-    } catch (IOException exception) {
-      throw new RuntimeException(exception);
-    }
+      plugin.getLogger().info("Loading house schematic");
+      Clipboard clipboard;
+      try (var inputStream = getClass().getResourceAsStream("/house.schem")) {
+        clipboard = BuiltInClipboardFormat.FAST.load(inputStream);
+      } catch (IOException exception) {
+        throw new RuntimeException(exception);
+      }
 
-    plugin.getLogger().info("Replacing blocks");
-    var visitor = new RegionVisitor(clipboard.getRegion(), new FeatureReplaceRegionFunction(clipboard, details),
-        clipboard);
-    Operations.completeLegacy(visitor);
+      plugin.getLogger().info("Replacing blocks");
+      var visitor = new RegionVisitor(clipboard.getRegion(), new FeatureReplaceRegionFunction(clipboard, details),
+          clipboard);
+      Operations.completeLegacy(visitor);
 
-    var world = createWorld(id);
+      plugin.getServer().getScheduler().runTask(plugin, () -> {
+        var world = createWorld(id);
 
-    plugin.getLogger().info("Pasting house schematic");
-    var vector = BlockVector3.at(0, 64, 0);
-    clipboard.paste(new BukkitWorld(world), vector, false, false, null);
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
+          plugin.getLogger().info("Pasting house schematic");
+          var vector = BlockVector3.at(0, 64, 0);
+          clipboard.paste(new BukkitWorld(world), vector, false, false, null);
 
-    var spectateLocation = new Location(world, 0, 64, 0, -180f, 0f);
-    plugin.getServer().getOnlinePlayers().forEach(player -> {
-      player.teleport(spectateLocation);
-      player.sendMessage(colorize("&7Teleported to building " + id));
+          var spectateLocation = new Location(world, 0, 64, 0, -180f, 0f);
+          lastBuilding = new Building(id, spectateLocation);
+
+          plugin.getServer().getScheduler().runTask(plugin, () -> {
+            plugin.getServer().getOnlinePlayers().forEach(player -> {
+              player.teleport(spectateLocation);
+              player.sendMessage(colorize("&7Teleported to building " + id));
+            });
+          });
+        });
+      });
     });
-    lastBuilding = new Building(id, spectateLocation);
   }
 
   private World createWorld(UUID buildingId) {
