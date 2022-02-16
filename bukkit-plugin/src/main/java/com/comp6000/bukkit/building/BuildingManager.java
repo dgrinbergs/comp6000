@@ -28,7 +28,7 @@ public class BuildingManager {
     this.plugin = plugin;
   }
 
-  public void initialize() {
+  public void init() {
     plugin.getServer().getPluginManager().registerEvents(new BuildingListener(this), plugin);
 
     plugin.getBackendServiceStub().streamCreateBuildingRequests(Empty.newBuilder().build(),
