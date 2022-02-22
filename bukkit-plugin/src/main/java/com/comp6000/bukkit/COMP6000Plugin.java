@@ -20,7 +20,7 @@ public class COMP6000Plugin extends JavaPlugin {
         NettyChannelBuilder.forAddress(backendHost, backendPort).usePlaintext()
             .build());
 
-    buildingManager.initialize();
+    buildingManager.init();
   }
 
   public BackendServiceGrpc.BackendServiceStub getBackendServiceStub() {

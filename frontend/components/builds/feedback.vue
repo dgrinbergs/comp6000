@@ -1,18 +1,24 @@
 <template>
   <div id="feedback">
     <div id="feedback-header">
-      <h3 id="feedback-generation">Generation {{currentPopulation + 1}}</h3>
-      <p>{{instructions}}</p>
+      <div class="flex flex-row items-center space-x-2">
+        <h3 id="feedback-generation">Generation {{ currentPopulation + 1 }}</h3>
+        <p>{{ instructions }}</p>
+      </div>
+      <div class="flex flex-row items-center space-x-2">
+        <button :disabled="!submittable" @click="submitFeedback" class="primary-button"
+                :class="{disabled : !submittable}"
+                v-if="!completable">
+          Submit Feedback
+        </button>
+        <div v-if="completable" class="flex flex-row space-x-4 items-center">
+          <p>The build you have selected will be generated in game</p>
+          <button :disabled="!completable" @click="complete" class="secondary-button">Done</button>
+        </div>
+      </div>
     </div>
     <div id="population-grid">
       <BuildsCard v-for="(building, index) in buildings" :key="index+1" :building="building"/>
-    </div>
-    <div id="actions">
-      <button :disabled="!submittable" @click="submitFeedback" class="primary-button" :class="{disabled : !submittable}">Submit Feedback</button>
-      <div class="flex flex-row space-x-4 items-center">
-        <p class="text-xs opacity-75" v-if="displayDoneHint">You've selected buildings but haven't submitted your feedback</p>
-        <button v-if="completable" @click="done" class="secondary-button">Done</button>
-      </div>
     </div>
   </div>
 </template>
@@ -27,7 +33,7 @@ export default Vue.extend({
   components: {BuildsCard},
   computed: {
     instructions(): string {
-      const difference = this.$store.getters["builds/minimumSelected"] - this.$store.getters['builds/selected'].length;
+      const difference = this.$store.getters["builds/minimumSelected"] - this.selected.length;
       if (difference > 0) {
         return `Select at least ${difference} more ${difference > 1 ? 'buildings' : 'building'} that you like`;
       } else {
@@ -44,24 +50,22 @@ export default Vue.extend({
       return this.population.buildings;
     },
     completable(): boolean {
-      return this.currentPopulation >= this.$store.getters["builds/minimumGenerations"];
+      return (this.currentPopulation >= this.$store.getters["builds/minimumGenerations"]) &&
+        this.selected.length === 1;
     },
     submittable(): boolean {
-      return this.selected >= this.$store.getters["builds/minimumSelected"];
+      return this.selected.length >= this.$store.getters["builds/minimumSelected"];
     },
-    selected(): number {
-      return this.$store.getters['builds/selected'].length;
+    selected(): String[] {
+      return this.$store.getters['builds/selected'];
     },
-    displayDoneHint(): boolean {
-      return this.selected > 0 && this.completable;
-    }
   },
   methods: {
     submitFeedback() {
       this.$store.dispatch('builds/submitFeedback');
     },
-    done() {
-      this.$store.dispatch('builds/toggleDone');
+    complete() {
+      this.$store.dispatch('builds/complete', this.selected[0]);
     }
   }
 })
@@ -75,7 +79,7 @@ export default Vue.extend({
 #feedback-header {
   @apply flex flex-row;
   @apply space-x-4;
-  @apply items-center;
+  @apply justify-between;
 }
 
 #feedback-generation {

@@ -3,10 +3,7 @@ package com.comp6000.backend.api;
 import com.comp6000.backend.genetic.GeneticAlgorithmService;
 import com.comp6000.backend.genetic.Population;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -25,4 +22,16 @@ class BuildsController {
   Mono<Population> createBuild() {
     return geneticAlgorithmService.createInitialPopulation();
   }
+
+  @CrossOrigin
+  @PostMapping("done")
+  Mono<Void> signalDone(@RequestBody DoneRequest doneRequest) {
+    geneticAlgorithmService.signalDone(doneRequest.buildingId());
+    return Mono.empty();
+  }
+
+  private record DoneRequest(
+      String buildingId
+  ){}
+
 }

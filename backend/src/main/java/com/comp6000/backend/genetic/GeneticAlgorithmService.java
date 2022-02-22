@@ -11,19 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 @Service
 public class GeneticAlgorithmService {
 
+  private Population currentPopulation;
+
   private final BackendGrpcServiceImpl grpcService;
 
   private static final int SIZE = 10;
+
+  private static int GEN = -1;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GeneticAlgorithmService.class);
 
   @Autowired
   public GeneticAlgorithmService(BackendGrpcServiceImpl grpcService) {
     this.grpcService = grpcService;
+    currentPopulation = new Population();
   }
 
   public Mono<Population> createInitialPopulation() {
@@ -46,22 +52,103 @@ public class GeneticAlgorithmService {
       var windowBlock = glassBlocks.get(random.nextInt(glassBlocks.size()));
 
       var building = new Building(
-          UUID.randomUUID(),
+          UUID.randomUUID().toString(),
           cornerBlock, floorBlock, roofBlock, wallBlock, bedBlock, doorBlock, windowBlock
       );
 
       buildings.add(building);
     }
 
-    LOGGER.info("Sending building {}", buildings.get(0).id());
-    grpcService.consumeBuilding(buildings.get(0));
-    LOGGER.info("Sent building");
-
-    return Mono.just(new Population(
-        UUID.randomUUID().toString(),
+    var population = new Population(
         buildings,
         List.of()
-    ));
+    );
+
+    currentPopulation = population;
+    GEN++;
+
+    return Mono.just(population);
+  }
+
+  public Mono<Population> acceptFeedback(List<String> selectedBuildings) {
+    var currentPopulation = this.currentPopulation.getBuildings();
+    var newPopulation = currentPopulation.stream()
+        .filter(building -> selectedBuildings.contains(building.id()))
+        .collect(Collectors.toCollection(ArrayList::new)
+        );
+
+    var random = ThreadLocalRandom.current();
+
+    while (newPopulation.size() < SIZE) {
+
+      // tournament selection
+      var tournament = new ArrayList<Building>();
+
+      while (tournament.size() < SIZE) {
+        var parentA = currentPopulation.get(random.nextInt(currentPopulation.size()));
+        var parentB = currentPopulation.get(random.nextInt(currentPopulation.size()));
+
+        if (selectedBuildings.contains(parentA.id())) {
+          tournament.add(parentA);
+          continue;
+        } else if (selectedBuildings.contains(parentB.id())) {
+          tournament.add(parentB);
+          continue;
+        }
+
+        // catches the case if both parents are the same
+        // or neither of the parents are elite
+        tournament.add(parentA);
+      }
+
+      // crossover
+      var parentA = tournament.get(random.nextInt(tournament.size()));
+      var parentB = tournament.get(random.nextInt(tournament.size()));
+
+      var childA = new Building(
+          UUID.randomUUID().toString(),
+          random.nextBoolean() ? parentA.cornerBlock() : parentB.cornerBlock(),
+          random.nextBoolean() ? parentA.floorBlock() : parentB.floorBlock(),
+          random.nextBoolean() ? parentA.roofBlock() : parentB.roofBlock(),
+          random.nextBoolean() ? parentA.wallBlock() : parentB.wallBlock(),
+          random.nextBoolean() ? parentA.bedBlock() : parentB.bedBlock(),
+          random.nextBoolean() ? parentA.doorBlock() : parentB.doorBlock(),
+          random.nextBoolean() ? parentA.windowBlock() : parentB.windowBlock()
+      );
+
+      newPopulation.add(childA);
+
+      if (newPopulation.size() < SIZE) {
+        var childB = new Building(
+            UUID.randomUUID().toString(),
+            childA.cornerBlock().equals(parentA.cornerBlock()) ? parentB.cornerBlock() : parentA.cornerBlock(),
+            childA.floorBlock().equals(parentA.floorBlock()) ? parentB.floorBlock() : parentA.floorBlock(),
+            childA.roofBlock().equals(parentA.roofBlock()) ? parentB.roofBlock() : parentA.roofBlock(),
+            childA.wallBlock().equals(parentA.wallBlock()) ? parentB.wallBlock() : parentA.wallBlock(),
+            childA.bedBlock().equals(parentA.bedBlock()) ? parentB.bedBlock() : parentA.bedBlock(),
+            childA.doorBlock().equals(parentA.doorBlock()) ? parentB.doorBlock() : parentA.doorBlock(),
+            childA.windowBlock().equals(parentA.windowBlock()) ? parentB.windowBlock() : parentA.windowBlock()
+        );
+
+        newPopulation.add(childB);
+      }
+
+    }
+
+    return Mono.just(new Population(newPopulation, List.of()));
+  }
+
+  public void signalDone(String buildingId) {
+    LOGGER.info("Sending building {}", buildingId);
+
+    var building = currentPopulation.getBuildings()
+        .stream()
+        .filter(b -> b.id().equals(buildingId))
+        .findFirst()
+        .orElse(currentPopulation.getBuildings().get(0));
+
+    grpcService.consumeBuilding(building);
+    LOGGER.info("Sent building");
   }
 
   //TODO: compare users favourite builds against the rest of the population

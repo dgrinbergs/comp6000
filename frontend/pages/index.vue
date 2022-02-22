@@ -52,7 +52,7 @@ export default Vue.extend({
       return this.$store.getters["builds/currentPopulation"];
     },
     done(): boolean {
-      return this.$store.getters["builds/done"];
+      return this.$store.getters["builds/complete"];
     }
   },
 })

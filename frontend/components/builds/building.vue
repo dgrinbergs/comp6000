@@ -1,5 +1,5 @@
 <template>
-  <div class="build-card" :class="{'selected': isSelected}" @click="toggleBuildingSelection">
+  <div class="build-card" :class="className" @click="toggleBuildingSelection">
     <div v-for="({icon, name}, feature, index) in features" :key="index" class="feature">
       <div class="name">{{ feature }}</div>
       <div class="details">
@@ -23,6 +23,11 @@ export default Vue.extend({
     building: {
       type: Object as () => Building,
       required: true,
+    },
+    clickable: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   computed: {
@@ -31,22 +36,36 @@ export default Vue.extend({
     },
     features(): Map<String, any> {
       return this.building.features;
+    },
+    className(): String | undefined {
+      let className = "";
+
+      if (this.isSelected &&
+        this.$store.getters["builds/selected"].length === 1 &&
+        (this.$store.getters["builds/currentPopulation"] >= this.$store.getters["builds/minimumGenerations"])) {
+        className += 'bg-green-200';
+      } else if (this.isSelected) {
+        className += 'bg-blue-200';
+      }
+
+      if (this.clickable) {
+        className += ` cursor-pointer`;
+      }
+
+      return className;
     }
   },
   methods: {
     toggleBuildingSelection() {
-      this.$store.dispatch('builds/toggleBuildingSelection', this.building)
+      if (this.clickable) {
+        this.$store.dispatch('builds/toggleBuildingSelection', this.building)
+      }
     }
   }
 })
 </script>
 <style lang="postcss">
-.selected {
-  @apply bg-green-100;
-}
-
 .build-card {
-  @apply cursor-pointer;
   @apply flex flex-col;
   @apply items-center;
   @apply p-4;
