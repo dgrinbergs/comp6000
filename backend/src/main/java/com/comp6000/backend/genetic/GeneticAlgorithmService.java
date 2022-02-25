@@ -68,22 +68,22 @@ public class GeneticAlgorithmService {
   }
 
   public Mono<Population> acceptFeedback(List<String> selectedBuildings) {
-    var currentPopulationBuildings = this.currentPopulation.getBuildings();
-    var newPopulation = currentPopulationBuildings.stream()
+    var currentBuildings = this.currentPopulation.getBuildings();
+    var newBuildings = currentBuildings.stream()
         .filter(building -> selectedBuildings.contains(building.id()))
         .collect(Collectors.toCollection(ArrayList::new)
         );
 
     var random = ThreadLocalRandom.current();
 
-    while (newPopulation.size() < SIZE) {
+    while (newBuildings.size() < SIZE) {
 
       // tournament selection
       var tournament = new ArrayList<Building>();
 
       while (tournament.size() < SIZE) {
-        var parentA = currentPopulationBuildings.get(random.nextInt(currentPopulationBuildings.size()));
-        var parentB = currentPopulationBuildings.get(random.nextInt(currentPopulationBuildings.size()));
+        var parentA = currentBuildings.get(random.nextInt(currentBuildings.size()));
+        var parentB = currentBuildings.get(random.nextInt(currentBuildings.size()));
 
         if (selectedBuildings.contains(parentA.id())) {
           tournament.add(parentA);
@@ -113,9 +113,9 @@ public class GeneticAlgorithmService {
           random.nextBoolean() ? parentA.windowBlock() : parentB.windowBlock()
       );
 
-      newPopulation.add(childA);
+      newBuildings.add(childA);
 
-      if (newPopulation.size() < SIZE) {
+      if (newBuildings.size() < SIZE) {
         var childB = new Building(
             UUID.randomUUID().toString(),
             childA.cornerBlock().equals(parentA.cornerBlock()) ? parentB.cornerBlock() : parentA.cornerBlock(),
@@ -127,11 +127,11 @@ public class GeneticAlgorithmService {
             childA.windowBlock().equals(parentA.windowBlock()) ? parentB.windowBlock() : parentA.windowBlock()
         );
 
-        newPopulation.add(childB);
+        newBuildings.add(childB);
       }
     }
 
-    currentPopulation = new Population(newPopulation, List.of());
+    currentPopulation = new Population(newBuildings, List.of());
     return Mono.just(currentPopulation);
   }
 
