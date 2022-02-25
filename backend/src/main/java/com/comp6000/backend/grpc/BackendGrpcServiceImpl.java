@@ -17,10 +17,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 @GrpcService
 public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImplBase {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(BackendGrpcServiceImpl.class);
+
   private final Sinks.Many<Building> sink;
   private final Queue<Building> queue = new ArrayBlockingQueue<>(1);
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(BackendGrpcServiceImpl.class);
 
   public BackendGrpcServiceImpl() {
     this.sink = Sinks.many().unicast().onBackpressureBuffer(queue);
@@ -51,7 +51,7 @@ public class BackendGrpcServiceImpl extends BackendServiceGrpc.BackendServiceImp
           .build();
 
       responseObserver.onNext(CreateBuildingRequest.newBuilder()
-          .setBuildingId(building.id().toString())
+          .setBuildingId(building.id())
           .setBuildingDetails(buildingDetails)
           .build());
     });
