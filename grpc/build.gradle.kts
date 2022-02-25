@@ -21,19 +21,19 @@ repositories {
 }
 
 dependencies {
-  "api"("io.grpc:grpc-netty-shaded:1.42.1")
-  "api"("io.grpc:grpc-protobuf:1.42.1")
-  "api"("io.grpc:grpc-stub:1.42.1")
+  "api"("io.grpc:grpc-netty-shaded:1.44.1")
+  "api"("io.grpc:grpc-protobuf:1.44.1")
+  "api"("io.grpc:grpc-stub:1.44.1")
   compileOnly("org.apache.tomcat:annotations-api:6.0.53")
 }
 
 protobuf {
   protoc {
-    artifact = "com.google.protobuf:protoc:3.17.2:osx-x86_64"
+    artifact = "com.google.protobuf:protoc:3.19.2"
   }
   plugins {
     id("grpc") {
-      artifact = "io.grpc:protoc-gen-grpc-java:1.42.1"
+      artifact = "io.grpc:protoc-gen-grpc-java:1.44.1"
     }
   }
   generateProtoTasks {
