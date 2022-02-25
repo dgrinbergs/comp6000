@@ -16,15 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class GeneticAlgorithmService {
 
+  private static final int SIZE = 10;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(GeneticAlgorithmService.class);
+
   private Population currentPopulation;
 
   private final BackendGrpcServiceImpl grpcService;
-
-  private static final int SIZE = 10;
-
-  private static int GEN = -1;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(GeneticAlgorithmService.class);
 
   @Autowired
   public GeneticAlgorithmService(BackendGrpcServiceImpl grpcService) {
@@ -65,28 +63,27 @@ public class GeneticAlgorithmService {
     );
 
     currentPopulation = population;
-    GEN++;
 
     return Mono.just(population);
   }
 
   public Mono<Population> acceptFeedback(List<String> selectedBuildings) {
-    var currentPopulation = this.currentPopulation.getBuildings();
-    var newPopulation = currentPopulation.stream()
+    var currentBuildings = this.currentPopulation.getBuildings();
+    var newBuildings = currentBuildings.stream()
         .filter(building -> selectedBuildings.contains(building.id()))
         .collect(Collectors.toCollection(ArrayList::new)
         );
 
     var random = ThreadLocalRandom.current();
 
-    while (newPopulation.size() < SIZE) {
+    while (newBuildings.size() < SIZE) {
 
       // tournament selection
       var tournament = new ArrayList<Building>();
 
       while (tournament.size() < SIZE) {
-        var parentA = currentPopulation.get(random.nextInt(currentPopulation.size()));
-        var parentB = currentPopulation.get(random.nextInt(currentPopulation.size()));
+        var parentA = currentBuildings.get(random.nextInt(currentBuildings.size()));
+        var parentB = currentBuildings.get(random.nextInt(currentBuildings.size()));
 
         if (selectedBuildings.contains(parentA.id())) {
           tournament.add(parentA);
@@ -116,9 +113,9 @@ public class GeneticAlgorithmService {
           random.nextBoolean() ? parentA.windowBlock() : parentB.windowBlock()
       );
 
-      newPopulation.add(childA);
+      newBuildings.add(childA);
 
-      if (newPopulation.size() < SIZE) {
+      if (newBuildings.size() < SIZE) {
         var childB = new Building(
             UUID.randomUUID().toString(),
             childA.cornerBlock().equals(parentA.cornerBlock()) ? parentB.cornerBlock() : parentA.cornerBlock(),
@@ -130,12 +127,12 @@ public class GeneticAlgorithmService {
             childA.windowBlock().equals(parentA.windowBlock()) ? parentB.windowBlock() : parentA.windowBlock()
         );
 
-        newPopulation.add(childB);
+        newBuildings.add(childB);
       }
-
     }
 
-    return Mono.just(new Population(newPopulation, List.of()));
+    currentPopulation = new Population(newBuildings, List.of());
+    return Mono.just(currentPopulation);
   }
 
   public void signalDone(String buildingId) {
@@ -145,12 +142,10 @@ public class GeneticAlgorithmService {
         .stream()
         .filter(b -> b.id().equals(buildingId))
         .findFirst()
-        .orElse(currentPopulation.getBuildings().get(0));
+        .orElseThrow();
 
     grpcService.consumeBuilding(building);
-    LOGGER.info("Sent building");
+    LOGGER.info("Sent building: {}", building.id());
   }
-
-  //TODO: compare users favourite builds against the rest of the population
 
 }
