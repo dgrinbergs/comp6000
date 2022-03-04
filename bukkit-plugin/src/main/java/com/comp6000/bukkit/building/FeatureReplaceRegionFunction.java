@@ -33,7 +33,7 @@ public class FeatureReplaceRegionFunction implements RegionFunction {
       extent.setBlock(position.getX(), position.getY(), position.getZ(),
           BlockTypes.get(buildingDetails.getRoofBlockId()).getDefaultState().withProperties(block));
       return true;
-    } else if (blockType == BlockTypes.COBBLESTONE) {
+    } else if (blockType == BlockTypes.COBBLESTONE || blockType == BlockTypes.MOSSY_COBBLESTONE) {
       extent.setBlock(position.getX(), position.getY(), position.getZ(),
           BlockTypes.get(buildingDetails.getWallBlockId()).getDefaultState());
       return true;
