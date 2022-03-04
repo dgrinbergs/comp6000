@@ -1,6 +1,6 @@
 export const state = () => ({
-  minimumGenerations: 1,
-  minimumSelected: 2,
+  minimumGenerations: 3,
+  minimumSelected: 3,
   complete: false,
   currentPopulation: -1,
   populations: [],
