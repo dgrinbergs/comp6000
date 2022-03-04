@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+  @apply py-2;
+}
+
 input[type=text] {
   @apply form-input;
   @apply rounded-md;
