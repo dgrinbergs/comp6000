@@ -1,7 +1,7 @@
 <template>
   <h1>About Us</h1><br>
   <h3>Overview</h3>
-  <div>
+  <div id="overview">
     We are Final Year Computer Science Students at the University of Kent.<br>
     Our project's aim was to create an application which creates houses and
     buildings in Minecraft based on feedback provided by the user of a frontend webpage.<br>
@@ -12,13 +12,17 @@
   <h3>Who we are?</h3>
   <div>
     <div>
-      <img src="https://aminoapps.com/c/minecraft/page/blog/the-og-steve-head/jGuK_u8RYD3b6VzBxZnjjXBajmKJrm" alt="Minecraft Steve Head"><br>Samuel Wheeler<br>Project Manager</div>
+      <img src="https://pm1.narvii.com/7616/bc3b22a89815985dc74b830a01ad331c0d3e9f86r1-768-768v2_hq.jpg" alt="Minecraft Steve Head"><br>Samuel Wheeler<br>Project Manager
+    </div>
     <div>
-      <img src="https://aminoapps.com/c/minecraft/page/blog/the-og-steve-head/jGuK_u8RYD3b6VzBxZnjjXBajmKJrm" alt="Minecraft Steve Head"><br>Harry Devane<br>Developer</div>
+      <img src="https://pm1.narvii.com/7616/bc3b22a89815985dc74b830a01ad331c0d3e9f86r1-768-768v2_hq.jpg" alt="Minecraft Steve Head"><br>Harry Devane<br>Developer
+    </div>
     <div>
-      <img src="https://aminoapps.com/c/minecraft/page/blog/the-og-steve-head/jGuK_u8RYD3b6VzBxZnjjXBajmKJrm" alt="Minecraft Steve Head"><br>Dainis Grinbergs<br>Developer</div>
+      <img src="https://pm1.narvii.com/7616/bc3b22a89815985dc74b830a01ad331c0d3e9f86r1-768-768v2_hq.jpg" alt="Minecraft Steve Head"><br>Dainis Grinbergs<br>Developer
+    </div>
     <div>
-      <img src="https://aminoapps.com/c/minecraft/page/blog/the-og-steve-head/jGuK_u8RYD3b6VzBxZnjjXBajmKJrm" alt="Minecraft Steve Head"><br>Corinne Batho-Newton<br>Researcher, Algorithm Logician and Administration</div>
+      <img src="https://pm1.narvii.com/7616/bc3b22a89815985dc74b830a01ad331c0d3e9f86r1-768-768v2_hq.jpg" alt="Minecraft Steve Head"><br>Corinne Batho-Newton<br>Researcher, Algorithm Logician and Administration
+    </div>
   </div>
 </template>
 
