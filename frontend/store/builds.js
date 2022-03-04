@@ -1,6 +1,6 @@
 export const state = () => ({
-  minimumGenerations: 1,
-  minimumSelected: 2,
+  minimumGenerations: 3,
+  minimumSelected: 3,
   complete: false,
   currentPopulation: -1,
   populations: [],
@@ -14,7 +14,7 @@ export const mutations = {
   toggleBuildingSelection(state, {id}) {
     let selected = state.populations[state.currentPopulation].selected;
 
-    if(!selected.includes(id)) {
+    if (!selected.includes(id)) {
       selected.push(id);
     } else {
       state.populations[state.currentPopulation].selected = selected.filter(s => s !== id)
@@ -43,7 +43,7 @@ export const actions = {
     })
   },
   async complete({commit}, buildingId) {
-    await this.$axios.post('/api/builds/done',{buildingId});
+    await this.$axios.post('/api/builds/done', {buildingId});
     commit('complete');
   }
 };
