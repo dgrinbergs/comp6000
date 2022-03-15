@@ -41,7 +41,7 @@ export default Vue.extend({
       if (this.currentPopulation < 0) {
         return "Press the Generate button to get started!";
       } else if (this.done) {
-        return "Connect to the minecraft server using the instructions below:";
+        return "";
       } else if (this.currentPopulation >= this.$store.getters["builds/minimumGenerations"]) {
         return "Pick your favourite builds and generate the next generation, or press done if you're finished.";
       } else {
