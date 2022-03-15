@@ -3,7 +3,7 @@ export default {
   ssr: false,
 
   axios: {
-    baseURL: 'http://localhost:8080'
+    baseURL: process.env.VUE_APP_API_URL || 'http://localhost:8080'
   },
 
   // Target: https://go.nuxtjs.dev/config-target
