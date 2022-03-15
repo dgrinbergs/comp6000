@@ -37,6 +37,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.comp6000-mc.entrypoints=minecraft
+      - traefik.http.routers.comp6000.rule=Host(`comp6000-mc.dgrinbergs.com`)
       - traefik.http.routers.comp6000-mc.service=minecraft
       - traefik.http.services.comp6000-mc.loadbalancer.server.port=25565
 
