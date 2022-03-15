@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    networks:
+      - public
+      - comp6000
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.comp6000.entrypoints=https
+      - traefik.http.routers.comp6000.rule=Host(`comp6000.dgrinbergs.com`)
+      - traefik.http.services.comp6000.loadbalancer.server.port=8080
+      - traefik.http.routers.comp6000.tls.certresolver=lets-encrypt
+      - traefik.http.middlewares.comp6000.headers.accesscontrolalloworiginlist=https://comp6000.pages.dev
+      - traefik.http.middlewares.comp6000.headers.accesscontrolallowmethods=GET,POST
+
+  minecraft-server:
+    container_name: minecraft-server
+    build: minecraft-server
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+        reservations:
+          memory: 1024M
+    networks:
+      - comp6000
+    environment:
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=9090
+    volumes:
+      - ./bukkit-plugin/build/libs/comp6000-bukkit.jar:/minecraft-server/plugins/bukkit-plugin.jar:ro
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.comp6000-mc.entrypoints=minecraft
+      - traefik.http.routers.comp6000-mc.service=minecraft
+      - traefik.http.services.comp6000-mc.loadbalancer.server.port=25565
+
+networks:
+  public:
+    external: true
+  comp6000:
