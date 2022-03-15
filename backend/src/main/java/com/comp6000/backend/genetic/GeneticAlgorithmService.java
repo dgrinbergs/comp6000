@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -130,6 +131,8 @@ public class GeneticAlgorithmService {
         newBuildings.add(childB);
       }
     }
+
+    Collections.shuffle(newBuildings);
 
     currentPopulation = new Population(newBuildings, List.of());
     return Mono.just(currentPopulation);
