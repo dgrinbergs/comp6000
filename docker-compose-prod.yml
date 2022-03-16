@@ -34,12 +34,8 @@ services:
       - BACKEND_PORT=9090
     volumes:
       - ./bukkit-plugin/build/libs/comp6000-bukkit.jar:/minecraft-server/plugins/bukkit-plugin.jar:ro
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.comp6000-mc.entrypoints=minecraft
-      - traefik.http.routers.comp6000-mc.rule=Host(`comp6000-mc.dgrinbergs.com`)
-      - traefik.http.routers.comp6000-mc.service=minecraft
-      - traefik.http.services.comp6000-mc.loadbalancer.server.port=25565
+    ports:
+      - 25565:25565
 
 networks:
   public:
