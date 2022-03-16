@@ -9,6 +9,13 @@ Final year group project.
 * [Services](./documentation/services.md)
 * [Running the project](#how-to-run-everything-in-this-project)
 
+## Links
+**Website URL**
+[https://comp6000.pages.dev](https://comp6000.pages.dev)
+
+**Server URL (Java Edition)**
+`comp6000-mc.dgrinbergs.com`
+
 ### How to run everything in this project
 This project relies on Docker to bring all the services together.
 Docker can be installed using the following instructions [here](https://docs.docker.com/get-docker/).
