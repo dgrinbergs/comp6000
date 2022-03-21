@@ -13,7 +13,7 @@
       }
     </style>
   </head>
-  <body class="max-w-7xl m-auto py-8 flex flex-col space-y-8">
+  <body class="max-w-7xl m-auto px-8 py-8 flex flex-col space-y-8">
     <header
       class="flex flex-col space-y-4 rounded-lg px-8 py-12 justify-center items-center bg-neutral-100 border-2 border-black"
     >
@@ -25,7 +25,7 @@
         class="flex flex-col space-y-8 p-8 rounded-lg bg-neutral-100 border-2 border-black"
       >
         <h2 class="text-2xl underline underline-offset-4">Documents</h2>
-        <ul id="document-list" class="flex flex-col space-y-4"></ul>
+        <ul id="section-list" class="flex flex-col space-y-4"></ul>
       </section>
     </main>
     <footer></footer>
@@ -51,24 +51,39 @@
       });
     };
 
-    const addDocuments = () => {
-      const documentList = document.getElementById("document-list");
+    const addSections = () => {
+      const sectionList = document.getElementById("section-list");
 
-      documents.forEach(({ name, href }) => {
-        const listItem = document.createElement("li");
-        const anchor = document.createElement("a");
+      sections.forEach(({ section, documents }) => {
+        const sectionDetails = document.createElement("li");
+        sectionDetails.classList = "flex flex-col space-y-2";
+        const heading = document.createElement("h3");
+        heading.innerText = section;
+        heading.classList = "text-xl";
 
-        anchor.innerText = name;
-        anchor.href = href;
+        const documentList = document.createElement("ul");
+        documentList.classList = "flex flex-col pl-4";
 
-        listItem.appendChild(anchor);
-        documentList.appendChild(listItem);
+        documents.forEach(({ name, href }) => {
+          const doc = document.createElement("li");
+          const anchor = document.createElement("a");
+
+          anchor.innerText = name;
+          anchor.href = href;
+
+          doc.appendChild(anchor);
+          documentList.appendChild(doc);
+        });
+
+        sectionDetails.appendChild(heading);
+        sectionDetails.appendChild(documentList);
+        sectionList.append(sectionDetails);
       });
     };
 
     document.addEventListener("DOMContentLoaded", () => {
       addMembers();
-      addDocuments();
+      addSections();
     });
   </script>
 </html>

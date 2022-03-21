@@ -5,37 +5,14 @@ const members = [
   "Samuel Wheeler",
 ];
 
-const documents = [
+const sections = [
   {
-    name: "User documentation",
-    href: "#",
-  },
-  {
-    name: "Testing Schedules",
-    href: "#",
-  },
-  {
-    name: "Specifications",
-    href: "#",
-  },
-  {
-    name: "Meeting Minutes",
-    href: "#",
-  },
-  {
-    name: "Literature Reviews",
-    href: "#",
-  },
-  {
-    name: "Implementations",
-    href: "#",
-  },
-  {
-    name: "Designs",
-    href: "#",
-  },
-  {
-    name: "Analyses",
-    href: "#",
+    section: "Sample Section",
+    documents: [
+      {
+        name: "Sample Document",
+        href: "#sample-document.pdf",
+      },
+    ],
   },
 ];
