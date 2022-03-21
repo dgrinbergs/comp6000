@@ -26,11 +26,10 @@ class FeedbackController {
   @CrossOrigin
   @PostMapping
   Mono<Population> submitFeedback(@RequestBody FeedbackRequest request) {
-    LOGGER.info("Received feedback");
     return geneticAlgorithmService.acceptFeedback(request.selected);
   }
 
-  private record FeedbackRequest(
+  public record FeedbackRequest(
       List<String> selected // The buildings that the user has selected as their favourites
   ) {
   }

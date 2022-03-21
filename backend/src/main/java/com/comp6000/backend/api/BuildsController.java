@@ -30,7 +30,7 @@ class BuildsController {
     return Mono.empty();
   }
 
-  private record DoneRequest(
+  public record DoneRequest(
       String buildingId
   ){}
 

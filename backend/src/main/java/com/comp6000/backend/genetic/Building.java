@@ -17,7 +17,7 @@ public record Building(
 ){
 
   @JsonProperty("features")
-  private Map<String, Material> features() {
+  public Map<String, Material> features() {
     return Map.of(
         "corner", cornerBlock,
         "floor", floorBlock,

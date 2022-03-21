@@ -4,7 +4,9 @@ import com.comp6000.backend.grpc.BackendGrpcServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -19,11 +21,13 @@ public class GeneticAlgorithmService {
 
   private static final int SIZE = 10;
 
+  private static final int MINIMUM_SELECTED = 3;
+
   private static final Logger LOGGER = LoggerFactory.getLogger(GeneticAlgorithmService.class);
 
-  private Population currentPopulation;
-
   private final BackendGrpcServiceImpl grpcService;
+
+  protected Population currentPopulation;
 
   @Autowired
   public GeneticAlgorithmService(BackendGrpcServiceImpl grpcService) {
@@ -69,6 +73,13 @@ public class GeneticAlgorithmService {
   }
 
   public Mono<Population> acceptFeedback(List<String> selectedBuildings) {
+    if (selectedBuildings.size() < MINIMUM_SELECTED) {
+      throw new ResponseStatusException(
+          HttpStatus.BAD_REQUEST,
+          String.format("You must select at least %s buildings", MINIMUM_SELECTED)
+      );
+    }
+
     var currentBuildings = this.currentPopulation.getBuildings();
     var newBuildings = currentBuildings.stream()
         .filter(building -> selectedBuildings.contains(building.id()))
