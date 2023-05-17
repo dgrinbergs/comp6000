@@ -3,6 +3,10 @@ Final year group project.
 
 [![Build Status](https://ci.dgrinbergs.com/api/badges/dgrinbergs/comp6000/status.svg?ref=refs/heads/develop)](https://ci.dgrinbergs.com/dgrinbergs/comp6000)
 
+<img width="1661" alt="image" src="https://github.com/dgrinbergs/comp6000/assets/44690511/54f69d04-69fa-4e23-83e3-587fd8ce9d60">
+
+<img width="1661" alt="image" src="https://github.com/dgrinbergs/comp6000/assets/44690511/b42cabc1-0cc6-4512-8603-dfac7f4bdcfb">
+
 ## Contents
 * [Google Drive](https://drive.google.com/drive/folders/1956QOpzN265OdxG60flO1qk3QptO6gZQ)
 * [API Specification](./documentation/api-specification.md)
